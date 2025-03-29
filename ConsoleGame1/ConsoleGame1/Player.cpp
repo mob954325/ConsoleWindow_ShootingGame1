@@ -10,6 +10,8 @@ namespace Player
 	void Boom();
 	void BoomEffect(float effectTime);
 	void RenderPlayerPosition();
+	void CreateBulletByLevel();
+
 	// Player
 	ScreenElement* playerInfo;
 	PlayerWeaponInfo* playerWeaponInfo;
@@ -83,11 +85,39 @@ namespace Player
 
 		if (Input::IsKeyDown('F'))
 		{
-			BulletManager::CreateBullet(playerInfo->position, {20, 0}, Tag::PlayerObject);
+			CreateBulletByLevel();
 			__PrintDebugLog("Shoot\n");
 		}
 
 		shotTimer = 0;
+	}
+
+	void CreateBulletByLevel()
+	{
+		int bulletLevel = playerWeaponInfo->upGradeLevel;
+		float PlayerPosX = playerInfo->position.x;
+		float playerPosY = playerInfo->position.y;
+
+		if (bulletLevel == 0)
+		{
+			BulletManager::CreateBullet(playerInfo->position, { 20, 0 }, Tag::PlayerObject);
+		}
+		else if (bulletLevel == 1)
+		{
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1}, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1}, { 20, 0 }, Tag::PlayerObject);
+		}
+		else if (bulletLevel >= 2)
+		{
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1 }, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1 }, { 20, 0 }, Tag::PlayerObject);
+
+
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 2 }, { 20, 20 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 2 }, { 20, -20 }, Tag::PlayerObject);
+		}
 	}
 
 	void Boom()

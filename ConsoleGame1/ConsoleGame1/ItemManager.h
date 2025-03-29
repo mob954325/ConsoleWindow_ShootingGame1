@@ -4,6 +4,9 @@
 #include "Time.h"
 #include "DataTypes.h"
 #include "Vector.h"
+#include "GameManager.h"
+
+#define MAX_BOUNCE_NUMBER 5
 
 namespace ItemManager 
 {

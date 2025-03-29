@@ -102,7 +102,7 @@ namespace Collider
 					{
 					DebugLog("아이템획득2\n");
 					case WeaponUpgrade:
-						// 무기 미구현 
+						playerWeaponInfo->upGradeLevel++;
 						break;
 					case Boom:
 						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
@@ -121,11 +121,11 @@ namespace Collider
 			{
 				if (CheckEllipaseArea(currItem->data, *player) == 1)
 				{
-					currItem->data.health--;
+					currItem->data.health = 0;
 					switch (currItem->data.additionalElement.itemtype)
 					{
 					case WeaponUpgrade:
-
+						playerWeaponInfo->upGradeLevel++;
 						break;
 					case Boom:
 						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;

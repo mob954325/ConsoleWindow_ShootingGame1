@@ -24,7 +24,7 @@ namespace GameManager
 		gameState = GameState::BeforeStart;
 		gameResult = GameResultState::Lose;
 
-		playerElement = SetScreenElementValue({ 2,0 }, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, {10, 10}, Tag::PlayerObject);
+		playerElement = SetScreenElementValue({ 2,0 }, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, {12, 12}, Tag::PlayerObject);
 		playerWeaponInfo = SetPlayerWeaponValue(3, 0);
 		playScore = 0;
 	}

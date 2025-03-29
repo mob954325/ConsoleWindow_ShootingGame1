@@ -37,7 +37,9 @@ namespace EnemyManager
 				{
 					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
 					GameManager::AddPlayScore(enemyScore);
-					ItemManager::CreateItem(currEnemy->data.position, {-10, -5}, ItemType::Boom);
+
+					float randx = rand() % 2;
+					ItemManager::CreateItem(currEnemy->data.position, {-10, -10 * randx}, ItemType::WeaponUpgrade);
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);

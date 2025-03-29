@@ -1,4 +1,4 @@
-#include "MenuScene.h"
+﻿#include "MenuScene.h"
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLoop.h"
@@ -17,7 +17,6 @@ void MenuScene::Update()
 
 void MenuScene::Render()
 {
-	ConsoleRenderer::ScreenDrawString(0, 0, "MainMenu", FG_PINK_DARK);
 	MenuSceneUI::RenderUI();
 }
 

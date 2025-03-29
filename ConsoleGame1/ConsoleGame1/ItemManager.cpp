@@ -4,6 +4,8 @@
 
 namespace ItemManager
 {
+	void CheckItemHealth(Node* item);
+
 	Node*& ItemList = GameManager::GetItemList();
 
 	void ItemManagerInitialize()
@@ -13,7 +15,7 @@ namespace ItemManager
 	
 	void CreateItem(Vector2 spawnPos, Vector2 speed, ItemType type)
 	{
-		ScreenElement ItemData = SetItemElementValue({ 0, 0 }, 1, { (spawnPos.x + 1), spawnPos.y }, speed, type);
+		ScreenElement ItemData = SetItemElementValue({ 0, 0 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
 		AddNode(&ItemList, ItemData);
 	}
 	
@@ -25,15 +27,20 @@ namespace ItemManager
 			Node* currItem = FindNode(ItemList, i);
 			if (!currItem) return;
 
-			if ((currItem->data.position.x >= MAXWIDTH)
-				|| (currItem->data.position.x <= 0)
-				|| (currItem->data.health <= 0))
+			CheckItemHealth(currItem);
+
+			// Item 움직임 - 화면 끝에 도달하면 바운스
+			if(GameManager::CheckVaildPosition(currItem->data.position, currItem->data.scale) == 0)
 			{
-				DeleteNode(&currItem, &ItemList);
-				continue;
+				if (currItem->data.position.x <= 0 || currItem->data.position.x >= MAXWIDTH)
+					currItem->data.speed.x *= -1;
+				if (currItem->data.position.y <= 0 || currItem->data.position.y >= MAXHEIGHT)
+					currItem->data.speed.y *= -1;
+
+				currItem->data.health--;
 			}
 			currItem->data.position.x += (currItem->data.speed.x * Time::GetDeltaTime());
-			currItem->data.position.x += (currItem->data.speed.y * Time::GetDeltaTime());
+			currItem->data.position.y += (currItem->data.speed.y * Time::GetDeltaTime());
 		}
 	}
 	
@@ -77,6 +84,14 @@ namespace ItemManager
 					}
 				}
 			}
+		}
+	}
+
+	void CheckItemHealth(Node* item)
+	{
+		if (item->data.health <= 0)
+		{
+			DeleteNode(&item, &ItemList);
 		}
 	}
 }
