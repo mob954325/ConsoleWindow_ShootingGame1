@@ -5,6 +5,7 @@
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLoop.h"
+#include "FileUtility.h"
 #include "SpriteData.h"
 
 #include <locale.h>
@@ -18,7 +19,9 @@ int wmain()
 	ConsoleRenderer::ScreenInit();
 	Time::InitTime();
 	GameLoop::Initialize();
+	FileUtility::FileUtilityInitialize();
 	SpriteData::Initialize();
+
 	while (!Input::IsKeyPressed(VK_HOME))
 	{
 		Time::UpdateTime();
@@ -29,6 +32,8 @@ int wmain()
 		__CheckFPS();
 	};
 	
+	SpriteData::FreeAllSprites();
+	FileUtility::FreeAll();
 	ConsoleRenderer::ScreenRelease();
 
 	DUMP_LEAKS();

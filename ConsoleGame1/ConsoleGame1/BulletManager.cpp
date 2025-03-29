@@ -14,7 +14,7 @@ namespace BulletManager
 
 	void CreateBullet(Vector2 spawnPos, Vector2 speed, Tag tag)
 	{
-		ScreenElement bulletData = SetScreenElementValue({0, 0}, { (spawnPos.x + 1), spawnPos.y }, speed, tag);
+		ScreenElement bulletData = SetScreenElementValue({1, 1}, { (spawnPos.x + 1), spawnPos.y }, speed, tag);
 		AddNode(&BulletList, bulletData);
 	}
 

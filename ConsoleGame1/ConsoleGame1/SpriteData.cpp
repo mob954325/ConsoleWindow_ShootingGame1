@@ -5,11 +5,10 @@ namespace SpriteData
 	void LoadTextFile();
 	void ContainersAllocate();
 
-	wchar_t** HitEffects[3];
+	wchar_t** HitEffects[HITEFFECT_COUNT];
 
 	void Initialize()
 	{
-		FileUtility::FileUtilityInitialize();
 		ContainersAllocate();
 		LoadTextFile();
 	}
@@ -17,7 +16,21 @@ namespace SpriteData
 	wchar_t** GetHitEffect(int frameValue)
 	{
 		return HitEffects[frameValue];
-	}	
+	}
+
+	void FreeAllSprites()
+	{
+		// HitEffects
+		for (int i = 0; i < HITEFFECT_COUNT; i++)
+		{
+			for (int j = 0; j < HITEFFECT_COUNT; j++)
+			{
+				free(HitEffects[i][j]);
+			}
+			free(HitEffects[i]);
+		}
+	}
+
 
 	void LoadTextFile()
 	{

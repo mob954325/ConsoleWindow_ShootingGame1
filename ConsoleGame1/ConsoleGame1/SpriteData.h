@@ -10,4 +10,5 @@ namespace SpriteData
 {
 	void Initialize();
 	wchar_t** GetHitEffect(int frameValue);
+	void FreeAllSprites();
 }

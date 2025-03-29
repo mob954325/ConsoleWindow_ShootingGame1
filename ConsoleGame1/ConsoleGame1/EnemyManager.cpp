@@ -64,7 +64,7 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);			
 
-			BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, {-25, 0}, Tag::EnemyObject);
+			//BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, {-25, 0}, Tag::EnemyObject);
 			//__PrintDebugLog("Enemy Shoot\n");
 		}
 
@@ -78,9 +78,9 @@ namespace EnemyManager
 		{
 			Node* currEnemy = FindNode(EnemyList, i);
 
-			for (int i = 0; i <= currEnemy->data.scale.y; i++)
+			for (int i = 1; i <= currEnemy->data.scale.y; i++)
 			{
-				for (int j = 0; j <= currEnemy->data.scale.x; j++)
+				for (int j = 1; j <= currEnemy->data.scale.x; j++)
 				{
 					int currX = (int)currEnemy->data.position.x - currEnemy->data.scale.x / 2 + j;
 					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;

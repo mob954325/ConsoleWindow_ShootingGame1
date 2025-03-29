@@ -33,6 +33,7 @@ namespace GameManager
 	{
 		FreeAllNode(&BulletList);
 		FreeAllNode(&EnemyList);
+		FreeAllNode(&ItemList);
 	}
 
 	int KillALLOBJECTS()

@@ -121,5 +121,6 @@ namespace FileUtility
 	void FreeAll()
 	{
 		free(path);
+		free(wPath);
 	}
 }

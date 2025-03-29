@@ -35,8 +35,8 @@ namespace Collider
 				{
 					Node* currEnemy = FindNode(enemyList, j);
 
-					// 크기가 {0,0} = 한 칸만 차지하고 있으면
-					if (currEnemy->data.scale.x == 0 || currEnemy->data.scale.y == 0)
+					// 원
+					if (currEnemy->data.scale.x == currEnemy->data.scale.y)
 					{
 						if (CheckCircleArea(currBullet->data, currEnemy->data) == 1)
 						{
@@ -56,8 +56,8 @@ namespace Collider
 			}
 			else if (currBullet->data.tag == Tag::EnemyObject)
 			{
-				// 크기가 {0,0} = 한 칸만 차지하고 있으면
-				if (player->scale.x == 0 || player->scale.y == 0)
+				// 원
+				if (player->scale.x == player->scale.y)
 				{
 					if (CheckCircleArea(currBullet->data, *player) == 1)
 					{
@@ -93,7 +93,7 @@ namespace Collider
 			Node* currItem = FindNode(itemList, i);
 
 			// 크기가 {0,0} = 한 칸만 차지하고 있으면
-			if (player->scale.x == 0 || player->scale.y == 0)
+			if (player->scale.x == player->scale.y)
 			{
 				if (CheckCircleArea(currItem->data, *player) == 1)
 				{
@@ -152,7 +152,7 @@ namespace Collider
 
 		int distanceSqur = dx * dx + dy * dy;
 
-		return distanceSqur <= radiusSumX * radiusSumX ? 1 : 0;
+		return distanceSqur <= radiusSumX * radiusSumY ? 1 : 0;
 	}
 
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2)

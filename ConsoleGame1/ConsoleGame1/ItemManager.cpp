@@ -15,7 +15,7 @@ namespace ItemManager
 	
 	void CreateItem(Vector2 spawnPos, Vector2 speed, ItemType type)
 	{
-		ScreenElement ItemData = SetItemElementValue({ 0, 0 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
+		ScreenElement ItemData = SetItemElementValue({ 1, 1 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
 		AddNode(&ItemList, ItemData);
 	}
 	
@@ -51,9 +51,9 @@ namespace ItemManager
 		{
 			Node* currItem = FindNode(ItemList, i);
 
-			for (int i = 0; i <= currItem->data.scale.y; i++)
+			for (int i = 1; i <= currItem->data.scale.y; i++)
 			{
-				for (int j = 0; j <= currItem->data.scale.x; j++)
+				for (int j = 1; j <= currItem->data.scale.x; j++)
 				{
 					int currX = (int)currItem->data.position.x - currItem->data.scale.x / 2 + j;
 					int currY = (int)currItem->data.position.y - currItem->data.scale.y / 2 + i;
