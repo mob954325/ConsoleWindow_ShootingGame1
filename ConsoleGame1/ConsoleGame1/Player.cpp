@@ -99,23 +99,23 @@ namespace Player
 
 		if (bulletLevel == 0)
 		{
-			BulletManager::CreateBullet(playerInfo->position, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet(playerInfo->position, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
 		}
 		else if (bulletLevel == 1)
 		{
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1}, { 20, 0 }, Tag::PlayerObject);
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { 20, 0 }, Tag::PlayerObject);
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1}, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1}, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1}, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
 		}
 		else if (bulletLevel >= 2)
 		{
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1 }, { 20, 0 }, Tag::PlayerObject);
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { 20, 0 }, Tag::PlayerObject);
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1 }, { 20, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 1 }, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY }, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 1 }, { BULLET_SPEED * 2, 0 }, Tag::PlayerObject);
 
 
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 2 }, { 20, 20 }, Tag::PlayerObject);
-			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 2 }, { 20, -20 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY + 2 }, { BULLET_SPEED * 2, BULLET_SPEED * 2 }, Tag::PlayerObject);
+			BulletManager::CreateBullet({ PlayerPosX , playerPosY - 2 }, { BULLET_SPEED * 2, -BULLET_SPEED * 2 }, Tag::PlayerObject);
 		}
 	}
 

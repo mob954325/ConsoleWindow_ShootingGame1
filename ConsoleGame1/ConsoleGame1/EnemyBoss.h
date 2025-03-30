@@ -4,6 +4,7 @@
 
 #include "GameManager.h"
 #include "BulletManager.h"
+#include "ParticleManager.h"
 
 namespace Boss
 {

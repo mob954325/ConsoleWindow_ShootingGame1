@@ -84,7 +84,7 @@ namespace EnemyManager
 			float speedX = player->position.x - curr.position.x;
 			float speedY = player->position.y - curr.position.y;
 
-			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y }, { BULLET_SPEED / 2 * speedX, BULLET_SPEED / 2 * speedY }, Tag::EnemyObject);
+			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y }, { speedX, speedY }, Tag::EnemyObject);
 		}
 		else if (type == EnemyType::Medium) // 2 x 2
 		{

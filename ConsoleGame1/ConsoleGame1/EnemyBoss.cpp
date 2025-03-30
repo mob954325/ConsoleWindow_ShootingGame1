@@ -19,6 +19,7 @@ namespace Boss
 
 	void BossUpdate()
 	{
+		// 행동
 		BossInfo->remainTime -= Time::GetDeltaTime();
 		if (BossInfo->position.x > MAXWIDTH - 10)
 		{
@@ -45,7 +46,25 @@ namespace Boss
 			{
 				int currX = (int)BossInfo->position.x - BossInfo->scale.x / 2 + j;
 				int currY = (int)BossInfo->position.y - BossInfo->scale.y / 2 + i;
+				if (currX == (int)BossInfo->position.x && currY == (int)BossInfo->position.y)
+				{
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'(｀・ω・´)', FG_BLUE_DARK);
+				}
 				ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
+			}
+		}
+
+		// 사망
+		if (BossInfo->health <= 0)
+		{
+			int enemyScore = GameManager::GetScoreBySize(*BossInfo);
+			GameManager::AddPlayScore(enemyScore);
+
+			for (int i = 0; i < 10; i++)
+			{
+				int posX = rand() % (int)BossInfo->scale.x;
+				int posY = rand() % (int)BossInfo->scale.y;
+				ParticleManager::ShowParticleAtPosition({ BossInfo->position.x - posX, BossInfo->position.y + posY / 2 }, ParticleType::Dead, 0.1);
 			}
 		}
 	}
