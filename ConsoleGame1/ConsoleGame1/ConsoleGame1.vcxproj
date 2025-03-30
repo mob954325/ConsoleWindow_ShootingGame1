@@ -142,6 +142,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="MenuSceneUI.cpp" />
+    <ClCompile Include="ParticleManager.cpp" />
     <ClCompile Include="PlayScreenUI.cpp" />
     <ClCompile Include="Intput.cpp" />
     <ClCompile Include="List.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="MenuSceneUI.h" />
+    <ClInclude Include="ParticleManager.h" />
     <ClInclude Include="PlayScreenUI.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="List.h" />

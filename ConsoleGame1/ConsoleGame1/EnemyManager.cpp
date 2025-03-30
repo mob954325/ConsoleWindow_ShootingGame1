@@ -115,9 +115,9 @@ namespace EnemyManager
 		AddNode(&EnemyList, enemyData);
 	}
 
-	void SpawnEnemyAtPosition(Vector2 spawnPosition)
+	void SpawnEnemyAtPosition(Vector2 spawnPosition, int hp)
 	{
-		ScreenElement enemyData = SetScreenElementValue({3, 3}, spawnPosition, { -1, 0 }, Tag::EnemyObject);
+		ScreenElement enemyData = SetScreenElementValue({1, 1}, hp, spawnPosition, { 0, 0 }, Tag::EnemyObject);
 		AddNode(&EnemyList, enemyData);
 	}
 

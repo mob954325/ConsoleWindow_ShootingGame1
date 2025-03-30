@@ -4,17 +4,18 @@ void TestVictory();
 
 void PlayScene::Initialize()
 {
-	GameManager::GameManagerInitialize();
+	GameManager::GameManagerInitialize(); // TODO : 이름 줄이기
 	EnemyManager::EnemyManagerInitialize();
 	BulletManager::BulletManagerInitialize();
 	ItemManager::ItemManagerInitialize();
+	ParticleManager::Initialize();
 	PlayScreenUI::PlayScreenUIInitialize();
 	Time::InitTime();
 
 	Player::PlayerInit();
 
 	GameManager::SetGameState(GameState::Playing);	
-	//EnemyManager::SpawnEnemyAtPosition({20,5}); // 임시 적 스폰
+	EnemyManager::SpawnEnemyAtPosition({40,20}, 1000); // 임시 적 스폰
 }
 
 void PlayScene::Update()
@@ -28,7 +29,7 @@ void PlayScene::Update()
 	if (GameManager::GetGameState() == GameState::PlayEnd) return;
 
 	// 업데이트 루프
-	EnemyManager::SetEnemySpanwer(1.2f);
+	//EnemyManager::SetEnemySpanwer(1.2f);
 	BulletManager::BulletUpdate();
 	ItemManager::ItemUpdate();
 
@@ -51,7 +52,7 @@ void PlayScene::Render()
 	BulletManager::BulletRender();
 	EnemyManager::EnemyRender();
 	ItemManager::ItemRender();
-
+	ParticleManager::ParticleRender();
 	Player::RenderPlayer();
 
 	PlayScreenUI::RenderUI();

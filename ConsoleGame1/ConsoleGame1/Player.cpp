@@ -2,8 +2,6 @@
 
 #include "DebugUtility.h"
 
-#include "SpriteData.h"
-
 namespace Player
 {
 	// 멤버 함수
@@ -162,16 +160,6 @@ namespace Player
 
 		RenderPlayerPosition();
 		BoomEffect(0.8f); // 폭탄 이펙트
-
-		//// 텍스트 파일로 불러온 이펙트 테스트
-		//testTimer += Time::GetDeltaTime();
-		//if (testTimer > maxTimer) { testTimer = 0, index++, index %= 3; }
-
-		//wchar_t** t = SpriteData::GetHitEffect(index);
-		//for (int i = 0; i < HITEFFECT_COUNT; i++)
-		//{
-		//	ConsoleRenderer::ScreenDrawString(10, 10 + i, t[i], FG_BLUE_DARK);
-		//}
 	}
 
 	void RenderPlayerPosition()

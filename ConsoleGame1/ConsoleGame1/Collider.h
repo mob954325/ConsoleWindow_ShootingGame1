@@ -3,6 +3,7 @@
 #include "DataTypes.h"
 #include "Player.h"
 #include "PlayScreenUI.h"
+#include "ParticleManager.h"
 
 #include "DebugUtility.h"
 

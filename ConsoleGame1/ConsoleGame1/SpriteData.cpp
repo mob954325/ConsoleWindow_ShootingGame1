@@ -6,6 +6,7 @@ namespace SpriteData
 	void ContainersAllocate();
 
 	wchar_t** HitEffects[HITEFFECT_COUNT];
+	int HitEffectsColumnNum[HITEFFECT_COUNT];
 
 	void Initialize()
 	{
@@ -13,8 +14,9 @@ namespace SpriteData
 		LoadTextFile();
 	}
 	
-	wchar_t** GetHitEffect(int frameValue)
+	wchar_t** GetHitEffect(int frameValue, int *out_columnNum)
 	{
+		*out_columnNum = HitEffectsColumnNum[frameValue];
 		return HitEffects[frameValue];
 	}
 
@@ -35,9 +37,9 @@ namespace SpriteData
 	void LoadTextFile()
 	{
 		// HitEffect - 3«¡∑π¿”
-		FileUtility::GetTextFromWFile("HitEffect\\Hit1.txt", &(HitEffects[0]));
-		FileUtility::GetTextFromWFile("HitEffect\\Hit2.txt", &(HitEffects[1]));
-		FileUtility::GetTextFromWFile("HitEffect\\Hit3.txt", &(HitEffects[2]));
+		HitEffectsColumnNum[0] = FileUtility::GetTextFromWFile("HitEffect\\Hit1.txt", &(HitEffects[0]));
+		HitEffectsColumnNum[1] = FileUtility::GetTextFromWFile("HitEffect\\Hit2.txt", &(HitEffects[1]));
+		HitEffectsColumnNum[2] = FileUtility::GetTextFromWFile("HitEffect\\Hit3.txt", &(HitEffects[2]));
 	}
 
 	void ContainersAllocate()

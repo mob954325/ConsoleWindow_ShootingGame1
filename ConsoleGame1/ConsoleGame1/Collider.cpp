@@ -42,6 +42,9 @@ namespace Collider
 						{
 							currBullet->data.health--;
 							currEnemy->data.health--;
+
+							// 임시
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
 						}
 					}
 					else // 나머지
@@ -50,6 +53,9 @@ namespace Collider
 						{
 							currBullet->data.health--;
 							currEnemy->data.health--;
+
+							// 임수
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
 						}
 					}
 				}
@@ -144,15 +150,17 @@ namespace Collider
 
 	int CheckCircleArea(ScreenElement obj1, ScreenElement obj2)
 	{
-		int radiusSumX = obj1.scale.x + obj2.scale.y;
-		int radiusSumY = obj1.scale.x + obj2.scale.y;
+		float radius1 = obj1.scale.x / 2.0f;
+		float radius2 = obj2.scale.x / 2.0f;
+
+		float radiusSum = radius1 + radius2;
 
 		int dx = (int)obj1.position.x - (int)obj2.position.x;
 		int dy = (int)obj1.position.y - (int)obj2.position.y;
 
 		int distanceSqur = dx * dx + dy * dy;
 
-		return distanceSqur <= radiusSumX * radiusSumY ? 1 : 0;
+		return distanceSqur < radiusSum * radiusSum ? 1 : 0;
 	}
 
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2)

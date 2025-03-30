@@ -18,6 +18,6 @@ namespace EnemyManager
 	void EnemyRender();
 
 	void SpawnEnemyAtRandomPosition();
-	void SpawnEnemyAtPosition(Vector2 spawnPosition);
+	void SpawnEnemyAtPosition(Vector2 spawnPosition, int hp);
 	void SetEnemySpanwer(float spawnDelay);
 }

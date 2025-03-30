@@ -1,5 +1,6 @@
 ﻿#include "DataTypes.h"
 
+
 ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, Vector2 speed, Tag tag)
 {
 	ScreenElement obj;
@@ -42,6 +43,12 @@ PlayerWeaponInfo SetPlayerWeaponValue(int boomCount, int weaponLevel)
 	info.upGradeLevel = weaponLevel;
 
 	return info;
+}
+
+void SetElementTimer(float maxTime, ScreenElement* obj)
+{
+	obj->maxTime = maxTime;
+	obj->remainTime = maxTime;
 }
 
 int GetScreenPositionByRatio(int type, float value)
