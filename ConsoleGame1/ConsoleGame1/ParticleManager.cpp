@@ -38,15 +38,26 @@ namespace ParticleManager
 
 		particleObjects[index].position = vec;
 		particleObjects[index].additionalElement.particleType = type;
-		particleObjects[index].health = HITEFFECT_COUNT;
 		SetElementTimer(frameTime, &particleObjects[index]);
+		if (type == ParticleType::Hit)
+		{
+			particleObjects[index].health = HITEFFECT_COUNT;
+		}
+		else if(type == ParticleType::Dead)
+		{
+			particleObjects[index].health = DEADEFFECT_COUNT;
+		}
+		else if (type == ParticleType::PlayerBoom)
+		{
+			particleObjects[index].health = PLAYERBOOMEFFECT_COUNT;
+		}
 	}
 
 	int FindEmptyElement()
 	{
 		for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
 		{
-			if (particleObjects[i].remainTime <= 0)
+			if (particleObjects[i].health <= 0)
 			{
 				return i;
 			}
@@ -55,11 +66,12 @@ namespace ParticleManager
 		return 0; // 없음
 	}
 
+	// note : 이거 같은 내용 복사 붙여넣기 한건데 합치면 시간관리가 안되서 일단 코드 이렇게 작성함 [0330]
 	void RenderPaticleByType(ScreenElement *obj)
 	{
 		if (obj->additionalElement.particleType == ParticleType::Hit)
 		{
-			obj->remainTime -= Time::GetDeltaTime(); // 시간이 안쭘 
+			obj->remainTime -= Time::GetDeltaTime();
 
 			// 인덱스 결정 -> 시간이 끝날때마다 인덱스 감소
 			if (obj->remainTime <= 0)
@@ -77,21 +89,63 @@ namespace ParticleManager
 				// 파티클 출력
 				int size = 0;
 				wchar_t** t = SpriteData::GetHitEffect(obj->health - 1, &size);
-				for (int i = 0; i < size; i++) // 크기 모름 -> 이펙트 크기만큼 실행
+				for (int i = 0; i < size; i++)
 				{
-					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[obj->health - 1], FG_BLUE_DARK);
+					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_BLUE_DARK);
+				}
+			}
+		}
+		else if (obj->additionalElement.particleType == ParticleType::Dead)
+		{
+			obj->remainTime -= Time::GetDeltaTime();
+
+			// 인덱스 결정 -> 시간이 끝날때마다 인덱스 감소
+			if (obj->remainTime <= 0)
+			{
+				obj->health--;
+				obj->remainTime = obj->maxTime;
+			}
+
+			if (obj->health <= 0) // 애니메이션 이벤트 끝
+			{
+				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // 해당 파티클 정보 초기화
+			}
+			else // 애니메이션 이벤트 진행
+			{
+				// 파티클 출력
+				int size = 0;
+				wchar_t** t = SpriteData::GetBoomEffect(obj->health - 1, &size);
+				for (int i = 0; i < size; i++)
+				{
+					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_WHITE);
+				}
+			}
+		}
+		else if (obj->additionalElement.particleType == ParticleType::PlayerBoom)
+		{
+			obj->remainTime -= Time::GetDeltaTime();
+
+			// 인덱스 결정 -> 시간이 끝날때마다 인덱스 감소
+			if (obj->remainTime <= 0)
+			{
+				obj->health--;
+				obj->remainTime = obj->maxTime;
+			}
+
+			if (obj->health <= 0) // 애니메이션 이벤트 끝
+			{
+				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // 해당 파티클 정보 초기화
+			}
+			else // 애니메이션 이벤트 진행
+			{
+				// 파티클 출력
+				int size = 0;
+				wchar_t** t = SpriteData::GetPlayerBoomEffect(obj->health - 1, &size);
+				for (int i = 0; i < size; i++)
+				{
+					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_YELLOW_DARK);
 				}
 			}
 		}
 	}
 }
-
-//// 텍스트 파일로 불러온 이펙트 테스트 
-//testTimer += Time::GetDeltaTime();
-//if (testTimer > maxTime) { testTimer = 0, index++, index %= 3; }
-
-//wchar_t** t = SpriteData::GetHitEffect(index);
-//for (int i = 0; i < HITEFFECT_COUNT; i++)
-//{
-//	ConsoleRenderer::ScreenDrawString(10, 10 + i, t[i], FG_BLUE_DARK);
-//}

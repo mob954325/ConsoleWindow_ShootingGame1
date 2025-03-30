@@ -24,9 +24,23 @@ ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, V
 	return obj;
 }
 
+ScreenElement SetEnemyElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, EnemyType enemyType)
+{
+	ScreenElement obj;
+	obj.tag = Tag::EnemyObject;
+	obj.scale = scale;
+	obj.health = maxHealth;
+	obj.position = { vec.x, vec.y };
+	obj.speed = speed;
+	obj.additionalElement.enemyType = enemyType;
+
+	return obj;
+}
+
 ScreenElement SetItemElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, ItemType itemtype)
 {
 	ScreenElement obj;
+	obj.tag = Tag::ItemObject;
 	obj.scale = scale;
 	obj.health = maxHealth;
 	obj.position = { vec.x, vec.y };

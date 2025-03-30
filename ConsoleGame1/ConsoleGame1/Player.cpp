@@ -1,5 +1,6 @@
 ﻿#include "Player.h"
 
+#include "ParticleManager.h"
 #include "DebugUtility.h"
 
 namespace Player
@@ -21,15 +22,13 @@ namespace Player
 
 	float shotTimer = 0;
 	float maxShotTimer = PLAYER_SHOTDELAY;
-	float boomEffectTimer = 0;
 
 	int PlayerInit()
 	{
-		boomEffectTimer = 10000;
 		playerInfo = GameManager::GetPlayerInfo();
 		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 		state = PlayerState::NonImmune;
-		nextVec = { 2,2 }; // 임시
+		nextVec = { 2,2 };
 
 		return 1;
 	}
@@ -126,10 +125,10 @@ namespace Player
 
 		if (Input::IsKeyPressed('G'))
 		{
-			boomEffectTimer = 0;
 			int totalScore = GameManager::KillALLOBJECTS(); // 점수 획득 후 모든 생성된 오브젝트 제거 
 			GameManager::AddPlayScore(totalScore);
 			playerWeaponInfo->boomCount--;
+
 		}
 	}
 
@@ -149,7 +148,7 @@ namespace Player
 				int currY = (int)playerInfo->position.y - playerInfo->scale.y / 2 + i;
 				if (currX == (int)playerInfo->position.x && currY == (int)playerInfo->position.y)
 				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'◉', FG_RED);
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'P', FG_RED);
 				}
 				else
 				{
@@ -187,19 +186,12 @@ namespace Player
 
 	void BoomEffect(float effectTime)
 	{
-		if (playerWeaponInfo->boomCount < 0) return;
-
-		boomEffectTimer += Time::GetDeltaTime();
-
-		if (boomEffectTimer < effectTime)
+		if (playerWeaponInfo->boomCount <= 0) return;
+		
+		if (Input::IsKeyDown('G'))
 		{
-			for (int y = 0; y < MAXHEIGHT; y++)
-			{
-				for (int x = 0; x < MAXWIDTH; x++)
-				{
-					ConsoleRenderer::ScreenDrawChar(x, y, L'▒', FG_WHITE);
-				}
-			}
+			// TODO : 나중이 폭발이펙트 바꾸기
+			ParticleManager::ShowParticleAtPosition({MAXWIDTH / 2 - MAXWIDTH / 5, MAXHEIGHT / 2 - MAXHEIGHT / 5 }, ParticleType::PlayerBoom, 0.2);
 		}
 	}
 }

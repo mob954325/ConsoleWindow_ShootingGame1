@@ -15,7 +15,7 @@ void PlayScene::Initialize()
 	Player::PlayerInit();
 
 	GameManager::SetGameState(GameState::Playing);	
-	EnemyManager::SpawnEnemyAtPosition({40,20}, 1000); // 임시 적 스폰
+	//EnemyManager::SpawnEnemyAtPosition({40,20}, 1000); // 임시 적 스폰
 }
 
 void PlayScene::Update()
@@ -29,7 +29,7 @@ void PlayScene::Update()
 	if (GameManager::GetGameState() == GameState::PlayEnd) return;
 
 	// 업데이트 루프
-	//EnemyManager::SetEnemySpanwer(1.2f);
+	EnemyManager::SetEnemySpanwer(2);
 	BulletManager::BulletUpdate();
 	ItemManager::ItemUpdate();
 

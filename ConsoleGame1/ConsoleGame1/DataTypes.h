@@ -5,8 +5,10 @@
 #define ENEMY_SPAWN_AREA_WIDTH 5
 #define ENEMY_SPAWN_AREA_HEIGHT 21
 
-#define MAXWIDTH 100
+#define MAXWIDTH 110
 #define MAXHEIGHT 24
+
+#define BULLET_SPEED 100
 
 enum Tag
 {
@@ -19,13 +21,24 @@ enum Tag
 enum ItemType
 {
 	WeaponUpgrade = 0,
-	Boom,
-	HpRestore
+	BoomItem,
+	HpRestore,
+	ItemTypeCount
 };
 
 enum ParticleType
 {
 	Hit = 0,
+	Dead,
+	PlayerBoom,
+};
+
+enum EnemyType
+{
+	Smol = 0,
+	Medium,
+	Large,
+	EnemyTypeCount
 };
 
 struct ScreenElement
@@ -49,6 +62,7 @@ struct ScreenElement
 	{
 		ItemType itemtype;
 		ParticleType particleType;
+		EnemyType enemyType;
 	} additionalElement;
 };
 
@@ -60,6 +74,7 @@ struct PlayerWeaponInfo
 
 ScreenElement SetScreenElementValue(Vector2 scale, Vector2 vec, Vector2 speed, Tag tag);
 ScreenElement SetScreenElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, Tag tag);
+ScreenElement SetEnemyElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, EnemyType enemyType);
 ScreenElement SetItemElementValue(Vector2 scale, int maxHealth, Vector2 vec, Vector2 speed, ItemType itemtype);
 PlayerWeaponInfo SetPlayerWeaponValue(int boomCount, int weaponLevel);
 void SetElementTimer(float maxTime, ScreenElement* obj);

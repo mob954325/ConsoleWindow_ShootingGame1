@@ -1,5 +1,7 @@
 ﻿#include "ItemManager.h"
 
+#include "DebugUtility.h"
+
 #include "GameManager.h"
 
 namespace ItemManager
@@ -33,11 +35,15 @@ namespace ItemManager
 			if(GameManager::CheckVaildPosition(currItem->data.position, currItem->data.scale) == 0)
 			{
 				if (currItem->data.position.x <= 0 || currItem->data.position.x >= MAXWIDTH)
+				{
 					currItem->data.speed.x *= -1;
+					currItem->data.health--;
+				}
 				if (currItem->data.position.y <= 0 || currItem->data.position.y >= MAXHEIGHT)
+				{
 					currItem->data.speed.y *= -1;
-
-				currItem->data.health--;
+					currItem->data.health--;
+				}
 			}
 			currItem->data.position.x += (currItem->data.speed.x * Time::GetDeltaTime());
 			currItem->data.position.y += (currItem->data.speed.y * Time::GetDeltaTime());
@@ -67,7 +73,7 @@ namespace ItemManager
 						case WeaponUpgrade:
 							ConsoleRenderer::ScreenDrawChar(currX, currY, L'力', FG_SKY_DARK);
 							break;
-						case Boom:
+						case BoomItem:
 							ConsoleRenderer::ScreenDrawChar(currX, currY, L'爆', FG_SKY_DARK);
 							break;
 						case HpRestore:

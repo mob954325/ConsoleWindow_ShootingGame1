@@ -3,18 +3,18 @@
 #include "BulletManager.h"
 #include "GameManager.h"
 #include "ItemManager.h"
+#include "ParticleManager.h"
 
 #include "DebugUtility.h"
 
 namespace EnemyManager
 {
 	void EnemyShoot();
+	void CreateBulletByType(ScreenElement curr);
+
 	Node*& EnemyList = GameManager::GetEnemyList();
 
 	float spawnTimer = 0.0f;
-
-	float enemyShootTimer = 0.0f;
-	float maxEnemyShootTime = 1.2f;
 
 	void EnemyManagerInitialize()
 	{
@@ -29,6 +29,8 @@ namespace EnemyManager
 			Node* currEnemy = FindNode(EnemyList, i);
 			if (!currEnemy) return;
 
+			currEnemy->data.remainTime -= Time::GetDeltaTime(); // 타이머 감소
+
 			// 체력이 없거나 출력하는 위치에 벗어나면 적 제거
 			if ((currEnemy->data.position.x <= 0)
 			|| (currEnemy->data.health <= 0))
@@ -39,7 +41,10 @@ namespace EnemyManager
 					GameManager::AddPlayScore(enemyScore);
 
 					float randx = rand() % 2;
-					ItemManager::CreateItem(currEnemy->data.position, {-10, -10 * randx}, ItemType::WeaponUpgrade);
+					int randItemIndex = rand() % ItemType::ItemTypeCount;
+
+					ParticleManager::ShowParticleAtPosition(currEnemy->data.position, ParticleType::Dead, 0.08);
+					ItemManager::CreateItem(currEnemy->data.position, {-10, -10 * randx}, (ItemType)randItemIndex);
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);
@@ -55,20 +60,41 @@ namespace EnemyManager
 
 	void EnemyShoot()
 	{
-		enemyShootTimer += Time::GetDeltaTime();
-
-		if (enemyShootTimer < maxEnemyShootTime) return;
-
 		int enemyCount = NodeCount(EnemyList);
 		for (int i = 0; i < enemyCount; i++)
 		{
 			Node* currEnemy = FindNode(EnemyList, i);			
 
-			//BulletManager::CreateBullet({ (currEnemy->data.position.x - 3), currEnemy->data.position.y }, {-25, 0}, Tag::EnemyObject);
+			//if (currEnemy->data.additionalElement.enemyType == EnemyType::Smol) return; // ?
+			if (currEnemy->data.remainTime <= 0)
+			{
+				currEnemy->data.remainTime = currEnemy->data.maxTime;
+				CreateBulletByType(currEnemy->data);
+			}
 			//__PrintDebugLog("Enemy Shoot\n");
 		}
+	}
 
-		enemyShootTimer = 0;
+	void CreateBulletByType(ScreenElement curr)
+	{
+		EnemyType type = curr.additionalElement.enemyType;
+		if (type == EnemyType::Smol)
+		{
+			ScreenElement* player = GameManager::GetPlayerInfo();			
+			float speedX = player->position.x - curr.position.x;
+			float speedY = player->position.y - curr.position.y;
+
+			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y }, { BULLET_SPEED * speedX, BULLET_SPEED * speedY }, Tag::EnemyObject);
+		}
+		else if (type == EnemyType::Medium) // 2 x 2
+		{
+			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+		}
+		else if (type == EnemyType::Large) // 3 x 3
+		{
+			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y + 1}, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y - 1}, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+		}
 	}
 
 	void EnemyRender()
@@ -84,14 +110,7 @@ namespace EnemyManager
 				{
 					int currX = (int)currEnemy->data.position.x - currEnemy->data.scale.x / 2 + j;
 					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;
-					if (currX == (int)currEnemy->data.position.x && currY == (int)currEnemy->data.position.y)
-					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_SKY_DARK);
-					}
-					else
-					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
-					}
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
 				}
 			}
 		}
@@ -105,22 +124,37 @@ namespace EnemyManager
 		float spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
 
 		// TODO : 랜덤시드 변경 코드 넣기
-		float randomSizeX = rand() % MAX_ENEMY_SIZE;
-		float randomSizeY = rand() % MAX_ENEMY_SIZE;
 		float randomSpeed = rand() % MAX_ENEMY_SPEED;
+		int randomType = rand() % EnemyType::EnemyTypeCount;
 
 		if (randomSpeed < MIN_ENEMY_SPEED) randomSpeed = MIN_ENEMY_SPEED;
 
-		ScreenElement enemyData = SetScreenElementValue( { randomSizeX, randomSizeY }, randomSizeX + 1, { (spawnPositionX + MAXWIDTH), spawnPositionY }, {-randomSpeed, 0}, Tag::EnemyObject);
+		ScreenElement enemyData;
+		// 타입 별 데이터 저장
+		if (randomType == EnemyType::Smol) // 1 x 1
+		{
+			enemyData = SetEnemyElementValue( { 1, 1 }, 1, { (MAXWIDTH - spawnPositionX), spawnPositionY }, { -randomSpeed, 0 }, (EnemyType)randomType);
+			SetElementTimer(SMOL_SHOT_DELAY, &enemyData); // 공격 딜레이
+		}
+		else if (randomType == EnemyType::Medium) // 2 x 2
+		{
+			enemyData = SetEnemyElementValue({ 2, 2 }, 3, { (MAXWIDTH - spawnPositionX), spawnPositionY }, { -randomSpeed, 0 }, (EnemyType)randomType);
+			SetElementTimer(MEDIUM_SHOT_DELAY, &enemyData); // 공격 딜레이
+		}
+		else if (randomType == EnemyType::Large) // 3 x 4
+		{
+			enemyData = SetEnemyElementValue({ 3, 3 }, 9, { (MAXWIDTH - spawnPositionX), spawnPositionY }, { -randomSpeed, 0 }, (EnemyType)randomType);
+			SetElementTimer(LARGE_SHOT_DELAY, &enemyData); // 공격 딜레이
+		}
+
 		AddNode(&EnemyList, enemyData);
 	}
 
 	void SpawnEnemyAtPosition(Vector2 spawnPosition, int hp)
 	{
-		ScreenElement enemyData = SetScreenElementValue({1, 1}, hp, spawnPosition, { 0, 0 }, Tag::EnemyObject);
+		ScreenElement enemyData = SetEnemyElementValue({1, 1}, hp, spawnPosition, { 0, 0 }, EnemyType::Smol);
 		AddNode(&EnemyList, enemyData);
 	}
-
 
 	void SetEnemySpanwer(float spawnDelay)
 	{

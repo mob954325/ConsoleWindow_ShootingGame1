@@ -43,7 +43,6 @@ namespace Collider
 							currBullet->data.health--;
 							currEnemy->data.health--;
 
-							// 임시
 							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
 						}
 					}
@@ -54,7 +53,6 @@ namespace Collider
 							currBullet->data.health--;
 							currEnemy->data.health--;
 
-							// 임수
 							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
 						}
 					}
@@ -106,11 +104,10 @@ namespace Collider
 					currItem->data.health--;
 					switch (currItem->data.additionalElement.itemtype)
 					{
-					DebugLog("아이템획득2\n");
 					case WeaponUpgrade:
 						playerWeaponInfo->upGradeLevel++;
 						break;
-					case Boom:
+					case BoomItem:
 						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
 						else GameManager::AddPlayScore(1000);
 						break;
@@ -133,7 +130,7 @@ namespace Collider
 					case WeaponUpgrade:
 						playerWeaponInfo->upGradeLevel++;
 						break;
-					case Boom:
+					case BoomItem:
 						if (playerWeaponInfo->boomCount < 3) playerWeaponInfo->boomCount++;
 						else GameManager::AddPlayScore(1000);
 						break;
