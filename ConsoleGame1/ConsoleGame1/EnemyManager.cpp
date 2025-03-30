@@ -40,11 +40,16 @@ namespace EnemyManager
 					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
 					GameManager::AddPlayScore(enemyScore);
 
-					float randx = rand() % 2;
-					int randItemIndex = rand() % ItemType::ItemTypeCount;
-
 					ParticleManager::ShowParticleAtPosition(currEnemy->data.position, ParticleType::Dead, 0.08);
-					ItemManager::CreateItem(currEnemy->data.position, {-10, -10 * randx}, (ItemType)randItemIndex);
+
+					int currDropRate = rand() % 101;
+					if (currDropRate <= ITEM_DROPRATE)
+					{
+						float randx = rand() % 2;
+						int randItemIndex = rand() % ItemType::ItemTypeCount;
+
+						ItemManager::CreateItem(currEnemy->data.position, { -10, -10 * randx }, (ItemType)randItemIndex);
+					}
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);

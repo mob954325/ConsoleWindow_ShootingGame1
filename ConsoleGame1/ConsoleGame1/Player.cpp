@@ -85,7 +85,6 @@ namespace Player
 		if (Input::IsKeyDown('F'))
 		{
 			CreateBulletByLevel();
-			__PrintDebugLog("Shoot\n");
 		}
 
 		shotTimer = 0;

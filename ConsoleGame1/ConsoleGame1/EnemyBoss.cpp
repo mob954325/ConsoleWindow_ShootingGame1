@@ -19,6 +19,12 @@ namespace Boss
 
 	void BossUpdate()
 	{
+		if (BossInfo->health <= 0)
+		{
+			int enemyScore = GameManager::GetScoreBySize(*BossInfo);
+			GameManager::AddPlayScore(enemyScore); // 아마 게임 끝날때까지 계속 점수 증가할꺼임
+		}
+
 		// 행동
 		BossInfo->remainTime -= Time::GetDeltaTime();
 		if (BossInfo->position.x > MAXWIDTH - 10)
@@ -57,9 +63,6 @@ namespace Boss
 		// 사망
 		if (BossInfo->health <= 0)
 		{
-			int enemyScore = GameManager::GetScoreBySize(*BossInfo);
-			GameManager::AddPlayScore(enemyScore);
-
 			for (int i = 0; i < 10; i++)
 			{
 				int posX = rand() % (int)BossInfo->scale.x;
