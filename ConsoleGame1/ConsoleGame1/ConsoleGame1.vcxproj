@@ -136,6 +136,7 @@
     <ClCompile Include="DebugUtility.cpp" />
     <ClCompile Include="EndScene.cpp" />
     <ClCompile Include="EndSceneUI.cpp" />
+    <ClCompile Include="EnemyBoss.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FileUtility.cpp" />
     <ClCompile Include="GameLoop.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="DebugUtility.h" />
     <ClInclude Include="EndScene.h" />
     <ClInclude Include="EndSceneUI.h" />
+    <ClInclude Include="EnemyBoss.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="FileUtility.h" />
     <ClInclude Include="GameLoop.h" />

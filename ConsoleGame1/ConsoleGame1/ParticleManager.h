@@ -9,7 +9,7 @@
 
 namespace ParticleManager
 {
-	void Initialize();
+	void ParticleManagerInitialize();
 	void ParticleRender();
 	void ShowParticleAtPosition(int x, int y, ParticleType type, float frameTime);
 	void ShowParticleAtPosition(Vector2 vec, ParticleType type, float frameTime);

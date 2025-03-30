@@ -34,7 +34,7 @@ namespace PlayScreenUI
 
 	void RanderGameFrame()
 	{
-		ConsoleRenderer::ScreenDrawString(0, MAXHEIGHT, L"---------------------------------------------------------------------------------------------------------", FG_BLUE_DARK);
+		ConsoleRenderer::ScreenDrawString(0, MAXHEIGHT, L"---------------------------------------------------------------------------------------------------------------------------------", FG_BLUE_DARK);
 	}
 
 	void RenderPlayerHp()

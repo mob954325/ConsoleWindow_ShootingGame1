@@ -7,6 +7,7 @@
 #include "EnemyManager.h"
 #include "ItemManager.h"
 #include "GameManager.h"
+#include "EnemyBoss.h"
 #include "ParticleManager.h"
 #include "Collider.h"
 

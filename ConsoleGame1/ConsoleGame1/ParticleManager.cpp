@@ -9,7 +9,7 @@ namespace ParticleManager
 	// 파티클 개수 제한 16개
 	ScreenElement particleObjects[MAX_PARTICLE_COUNT];
 
-	void Initialize()
+	void ParticleManagerInitialize()
 	{
 		// 모든 요소 초기화
 		for (int i = 0; i < MAX_PARTICLE_COUNT; i++)

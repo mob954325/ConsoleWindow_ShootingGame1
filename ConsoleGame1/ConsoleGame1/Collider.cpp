@@ -14,11 +14,17 @@ namespace Collider
 	/// <returns>충돌하면 1, 충돌하지 않았으면 0 반환</returns>
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2);
 
+	void CheckPlayerToEnemyBullet();
+	void CheckEnemyToPlayerBullet();
+
 	void CheckBulletCollider()
 	{
+
+
 		// 총알이 뭐랑 닿았는지 확인하기
 		Node* bulletList = GameManager::GetBulletList();
 		Node* enemyList = GameManager::GetEnemyList();
+		ScreenElement* boss = GameManager::GetBossInfo();
 		ScreenElement* player = GameManager::GetPlayerInfo();
 
 		int bulletCount = NodeCount(bulletList);
@@ -29,8 +35,9 @@ namespace Collider
 			Node* currBullet = FindNode(bulletList, i);
 			int enemyCount = NodeCount(enemyList);
 
-			if (currBullet->data.tag == Tag::PlayerObject)
+			if (currBullet->data.tag == Tag::PlayerObject) // 플레이어 -> 적
 			{
+				// 일반 적
 				for (int j = 0; j < enemyCount; j++)
 				{
 					Node* currEnemy = FindNode(enemyList, j);
@@ -57,8 +64,33 @@ namespace Collider
 						}
 					}
 				}
+
+				// 보스
+				if (Time::GetTotalTime() > 60)
+				{
+					if (boss->scale.x == boss->scale.y)
+					{
+						if (CheckCircleArea(currBullet->data, *boss) == 1)
+						{
+							currBullet->data.health--;
+							boss->health--;
+
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+						}
+					}
+					else // 나머지
+					{
+						if (CheckEllipaseArea(currBullet->data, *boss) == 1)
+						{
+							currBullet->data.health--;
+							boss->health--;
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+						}
+					}
+				}
 			}
-			else if (currBullet->data.tag == Tag::EnemyObject)
+
+			else if (currBullet->data.tag == Tag::EnemyObject) // 적 -> 플레이어
 			{
 				// 원
 				if (player->scale.x == player->scale.y)

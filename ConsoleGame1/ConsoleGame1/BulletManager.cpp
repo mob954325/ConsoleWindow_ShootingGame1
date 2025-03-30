@@ -18,6 +18,12 @@ namespace BulletManager
 		AddNode(&BulletList, bulletData);
 	}
 
+	void CreateBullet(Vector2 spawnPos, Vector2 scale, Vector2 speed, Tag tag)
+	{
+		ScreenElement bulletData = SetScreenElementValue(scale, spawnPos, speed, tag);
+		AddNode(&BulletList, bulletData);
+	}
+
 	void BulletUpdate()
 	{
 		int bulletCount = NodeCount(BulletList);
@@ -45,8 +51,20 @@ namespace BulletManager
 		for (int i = 0; i < bulletCount; i++)
 		{
 			Node* currBullet = FindNode(BulletList, i);
-			if(currBullet->data.tag == Tag::PlayerObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'▬', FG_BLUE);
-			else if(currBullet->data.tag == Tag::EnemyObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'◀', FG_YELLOW);
+
+			for (int y = 1; y <= currBullet->data.scale.y; y++)
+			{
+				for (int x = 1; x <= currBullet->data.scale.x; x++)
+				{
+					int currX = (int)currBullet->data.position.x - currBullet->data.scale.x / 2 + x;
+					int currY = (int)currBullet->data.position.y - currBullet->data.scale.y / 2 + y;
+					if(currBullet->data.tag == Tag::PlayerObject) ConsoleRenderer::ScreenDrawChar(currX, currY, L'▬', FG_BLUE);
+					else if(currBullet->data.tag == Tag::EnemyObject) ConsoleRenderer::ScreenDrawChar(currX, currY, L'◀', FG_YELLOW);
+				}
+			}
+
+			//if(currBullet->data.tag == Tag::PlayerObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'▬', FG_BLUE);
+			//else if(currBullet->data.tag == Tag::EnemyObject) ConsoleRenderer::ScreenDrawChar((int)currBullet->data.position.x, (int)currBullet->data.position.y, L'◀', FG_YELLOW);
 		}
 	}
 }

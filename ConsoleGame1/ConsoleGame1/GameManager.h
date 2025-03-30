@@ -31,6 +31,7 @@ namespace GameManager
 	Node*& GetItemList();
 	ScreenElement* GetPlayerInfo();
 	PlayerWeaponInfo* GetPlayerWeaponInfo();
+	ScreenElement* GetBossInfo();
 
 	/// <summary>
 	/// 오브젝트 크기만큼 점수를 반환하는 함수

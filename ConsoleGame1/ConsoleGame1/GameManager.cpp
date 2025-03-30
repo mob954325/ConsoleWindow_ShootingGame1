@@ -10,6 +10,8 @@ namespace GameManager
 	ObjectNode* ItemList = NULL;			// 아이템 리스트
 	ScreenElement playerElement = {};		// 플레이어 기본 정보
 	PlayerWeaponInfo playerWeaponInfo = {}; // 플레이어 무기 정보
+	ScreenElement bossElement = {};			// 보스 기본 정보
+
 
 	GameState gameState = GameState::BeforeStart;		// 현재 게임 상태
 	GameResultState gameResult = GameResultState::Lose;	// 게임 결과 상태
@@ -24,9 +26,12 @@ namespace GameManager
 		gameState = GameState::BeforeStart;
 		gameResult = GameResultState::Lose;
 
+		// 플레이어 초기화
 		playerElement = SetScreenElementValue({ 2,0 }, 20, { MAXWIDTH / 2, MAXHEIGHT / 2 }, {12, 12}, Tag::PlayerObject);
 		playerWeaponInfo = SetPlayerWeaponValue(3, 0);
 		playScore = 0;
+
+		bossElement = SetScreenElementValue({ 20, 20 }, 10, { MAXWIDTH, MAXHEIGHT / 2 }, { -30, 0 }, Tag::EnemyObject);
 	}
 
 	void FreeAllLists()
@@ -92,6 +97,11 @@ namespace GameManager
 	PlayerWeaponInfo* GetPlayerWeaponInfo()
 	{
 		return &playerWeaponInfo;
+	}
+
+	ScreenElement* GetBossInfo()
+	{
+		return &bossElement;
 	}
 
 	int GetScoreBySize(ScreenElement obj)

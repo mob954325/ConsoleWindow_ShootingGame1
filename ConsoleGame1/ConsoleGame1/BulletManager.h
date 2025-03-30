@@ -9,6 +9,7 @@ namespace BulletManager
 {
 	void BulletManagerInitialize();
 	void CreateBullet(Vector2 spawnPos, Vector2 speed, Tag tag);
+	void CreateBullet(Vector2 spawnPos, Vector2 scale, Vector2 speed, Tag tag);
 	void BulletUpdate();
 	void BulletRender();
 }
