@@ -167,8 +167,9 @@ namespace Collider
 						else GameManager::AddPlayScore(1000);
 						break;
 					case HpRestore:
-						break;
 						if (player->health < 20) player->health++;
+						else GameManager::AddPlayScore(1000);
+						break;
 					default:
 						break;
 					}
