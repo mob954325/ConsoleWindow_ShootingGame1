@@ -1,4 +1,4 @@
-#include "EndSceneUI.h"
+ï»¿#include "EndSceneUI.h"
 
 namespace EndSceneUI
 {
@@ -16,16 +16,16 @@ namespace EndSceneUI
 
 	void ShowGameResult()
 	{
-		int scoreTextPosX = GetScreenPositionByRatio(0, 0.4);
-		int scoreTextPosY = GetScreenPositionByRatio(1, 0.7);
+		int scoreTextPosX = GetScreenPositionByRatio(0, 0.5);
+		int scoreTextPosY = GetScreenPositionByRatio(1, 0.3);
 
 		if (GameManager::GetGameReslutState() == GameResultState::Lose)
 		{
-			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "ÆÐ¹è", FG_GRAY);
+			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "íŒ¨ë°°", FG_RED);
 		}
 		else if (GameManager::GetGameReslutState() == GameResultState::Win)
 		{
-			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "½Â¸®", FG_GRAY);
+			ConsoleRenderer::ScreenDrawString(scoreTextPosX, scoreTextPosY, "ìŠ¹ë¦¬", FG_GREEN);
 		}
 	}
 
@@ -46,9 +46,9 @@ namespace EndSceneUI
 	{
 		if (inputBlockTimer < maxInputBlockTime) return;
 
-		int helpTextPosX = GetScreenPositionByRatio(0, 0.45);
+		int helpTextPosX = GetScreenPositionByRatio(0, 0.4);
 		int helpTextPosY = GetScreenPositionByRatio(1, 0.8);
-		ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY, L"½ºÆäÀÌ½º ´­·¯¼­ ¸Þ´º·Î µ¹¾Æ°¡±â", FG_GREEN);
+		ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY, L"ìŠ¤íŽ˜ì´ìŠ¤ ëˆŒëŸ¬ì„œ ë©”ë‰´ë¡œ ëŒì•„ê°€ê¸°", FG_WHITE);
 
 		if (Input::IsKeyPressed(VK_SPACE))
 		{

@@ -17,6 +17,7 @@ void PlayScene::Initialize()
 
 	GameManager::SetGameState(GameState::Playing);	
 	//EnemyManager::SpawnEnemyAtPosition({40,20}, 1000); // 임시 적 스폰
+	//ItemManager::CreateItem({ 40,20 }, { 0,0 }, ItemType::HpRestore); // 임시 아이템 생성
 }
 
 void PlayScene::Update()
@@ -52,7 +53,7 @@ void PlayScene::Update()
 	EnemyManager::EnemyUpdate();
 
 	Player::PlayerUpdate();
-	//TestVictory();
+	TestVictory();
 }
 
 void PlayScene::Render()

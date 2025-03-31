@@ -2,7 +2,8 @@
 
 namespace PlayScreenUI
 {
-	void Anim(); // 임시
+	void PlayerProfileRender(); // 임시
+	void BossHpProcess(); 
 
 	ScreenElement* playerInfo;	
 	ScreenElement* bossInfo;
@@ -12,6 +13,12 @@ namespace PlayScreenUI
 	float feedBackTimer = 0;
 	float maxFeedBackTime = 1.5f;
 	int isPlayerHit = 0; // 1 : true, 0 : false
+
+	// boss용 변수들
+	float bossHpAppearTimer = 0;
+	float maxBossHpAppearTime = 0.04f;
+	int hpGaugeCount = 0; // 최대 10
+	int isBossAppeared = 0; // 보스 등장 확인 -> 등장 애니메이션용 변수
 
 	void PlayScreenUIInitialize()
 	{
@@ -23,6 +30,7 @@ namespace PlayScreenUI
 
 	void RenderUI()
 	{
+		bossHpAppearTimer += Time::GetDeltaTime();
 		feedBackTimer += Time::GetDeltaTime();
 		if (feedBackTimer > maxFeedBackTime) isPlayerHit = 0;
 
@@ -125,7 +133,7 @@ namespace PlayScreenUI
 		else
 		{
 			//ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"█", FG_RED); // 임시
-			Anim();
+			PlayerProfileRender();
 		}
 	}
 
@@ -139,14 +147,26 @@ namespace PlayScreenUI
 		_itoa_s(currHealth, hpBuffer, 10);
 
 		int gapFromHealthTitle = 10;
-		int posY = GetScreenPositionByRatio(1, 0.2);
+		int posY = GetScreenPositionByRatio(1, 0.1);
 		ConsoleRenderer::ScreenDrawString(3, posY, L"BOSS", FG_GREEN);
 
+		BossHpProcess();
+
 		// 체력 그림
-		for (int i = 0; i < currHealth; i++)
+		if (isBossAppeared == 0) // 순차적 생성
 		{
-			ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
-			ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
+			for (int i = 0; i < hpGaugeCount; i++)
+			{
+				ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
+			}
+		}
+
+		if (isBossAppeared == 1)
+		{
+			for (int i = 0; i < currHealth; i++)
+			{
+				ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
+			}
 		}
 	}
 
@@ -157,7 +177,7 @@ namespace PlayScreenUI
 	}
 
 
-	void Anim()
+	void PlayerProfileRender()
 	{
 		if ((int)Time::GetTotalTime() % 2 == 0)
 		{
@@ -170,5 +190,17 @@ namespace PlayScreenUI
 		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 2, "+--------+", FG_GRAY);
 		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 4, "|        |", FG_GRAY);
 		ConsoleRenderer::ScreenDrawString(50, MAXHEIGHT + 5, "+--------+", FG_GRAY);
+	}
+
+	void BossHpProcess()
+	{
+		// hpUI 생성 절차
+		if (hpGaugeCount < bossInfo->health && bossHpAppearTimer > maxBossHpAppearTime) // 타이머
+		{
+			hpGaugeCount++;
+			bossHpAppearTimer = 0;
+		}
+
+		if (hpGaugeCount >= bossInfo->health) isBossAppeared = 1;
 	}
 }
