@@ -50,6 +50,7 @@ namespace EnemyManager
 
 						ItemManager::CreateItem(currEnemy->data.position, { -10, -10 * randx }, (ItemType)randItemIndex);
 					}
+					SoundController::PlayEffectSound("EnemyDead.wav");
 				}
 
 				DeleteNode(&currEnemy, &EnemyList);

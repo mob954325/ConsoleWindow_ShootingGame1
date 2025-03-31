@@ -15,7 +15,7 @@
 #define	MEDIUM_SHOT_DELAY 1
 #define	LARGE_SHOT_DELAY 2
 
-#define ITEM_DROPRATE 30
+#define ITEM_DROPRATE 35
 
 namespace EnemyManager
 {

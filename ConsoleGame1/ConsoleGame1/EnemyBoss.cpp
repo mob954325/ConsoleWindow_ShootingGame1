@@ -10,7 +10,7 @@ namespace Boss
 
 	float bossShootTimer = 0;
 	float maxBossShootTime = 0.7;
-
+	int isDead = 0;
 	void Initialize()
 	{
 		BossInfo = GameManager::GetBossInfo();
@@ -56,11 +56,16 @@ namespace Boss
 		// 사망
 		if (BossInfo->health <= 0)
 		{
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				int posX = rand() % (int)BossInfo->scale.x;
 				int posY = rand() % (int)BossInfo->scale.y;
 				ParticleManager::ShowParticleAtPosition({ BossInfo->position.x - posX, BossInfo->position.y + posY / 2 }, ParticleType::Dead, 0.1);
+			}
+			if (isDead == 0)
+			{
+				SoundController::PlayEffectSound("Victory.wav");
+				isDead = 1;
 			}
 		}
 	}

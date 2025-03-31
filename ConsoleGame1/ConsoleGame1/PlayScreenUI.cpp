@@ -88,7 +88,7 @@ namespace PlayScreenUI
 		ConsoleRenderer::ScreenDrawString(boomTextPosX, boomTextPosY, "Boom : ", FG_GREEN);
 		for (int i = 1; i <= boomCount; i++)
 		{
-			ConsoleRenderer::ScreenDrawChar((boomTextPosX * 1.2f)+ gap * i, boomTextPosY, L'⽶', FG_GREEN);
+			ConsoleRenderer::ScreenDrawChar((boomTextPosX * 1.2f)+ gap * i, boomTextPosY, L'B', FG_GREEN);
 
 		}
 	}

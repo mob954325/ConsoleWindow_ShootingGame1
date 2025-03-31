@@ -8,6 +8,8 @@
 namespace SoundController
 {
 	void Initialize();
-	void SoundPlay(const char* fileName);
+	void Update();
+	void PlayEffectSound(const char* fileName);
+	void PlayMainMusic(const char* fileName);
 	void Release();
 }

@@ -132,7 +132,8 @@ namespace Collider
 			{
 				if (CheckCircleArea(currItem->data, *player) == 1)
 				{
-					currItem->data.health--;
+					currItem->data.health = 0;
+					SoundController::PlayEffectSound("ItemPick.wav");
 					switch (currItem->data.additionalElement.itemtype)
 					{
 					case WeaponUpgrade:
@@ -156,6 +157,7 @@ namespace Collider
 				if (CheckEllipaseArea(currItem->data, *player) == 1)
 				{
 					currItem->data.health = 0;
+					SoundController::PlayEffectSound("ItemPick.wav");
 					switch (currItem->data.additionalElement.itemtype)
 					{
 					case WeaponUpgrade:

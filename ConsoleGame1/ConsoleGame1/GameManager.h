@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "SoundController.h"
 #include "ConsoleRenderer.h"
 #include "DataTypes.h"
 #include "List.h"

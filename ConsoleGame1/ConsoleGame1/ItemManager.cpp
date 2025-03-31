@@ -17,7 +17,7 @@ namespace ItemManager
 	
 	void CreateItem(Vector2 spawnPos, Vector2 speed, ItemType type)
 	{
-		ScreenElement ItemData = SetItemElementValue({ 2, 2 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
+		ScreenElement ItemData = SetItemElementValue({ 1, 1 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
 		AddNode(&ItemList, ItemData);
 	}
 	

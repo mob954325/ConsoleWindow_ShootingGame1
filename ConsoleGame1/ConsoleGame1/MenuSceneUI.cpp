@@ -4,11 +4,24 @@ namespace MenuSceneUI
 {
 	void InputGuide();
 
+	char* rankerName[3];
+	int rankerScore[3];
+
+	void Initialize()
+	{
+		for(int i = 1; i <= RANKER_COUNT; i++)
+		{
+			int score = RankingFileUtility::GetHighScore(i, &rankerName[i - 1]);
+			rankerScore[i - 1] = score;
+		}
+	}
+
 	void RenderUI()
 	{
 		TitleUI();
 		ShowPressStartUI();
 		InputGuide();
+		ShowHighestScore();
 	}
 
 	void TitleUI()
@@ -23,6 +36,20 @@ namespace MenuSceneUI
 		int posX = GetScreenPositionByRatio(0, 0.47);
 		int posY = GetScreenPositionByRatio(1, 0.8);
 		ConsoleRenderer::ScreenDrawString(posX, posY, "Press Space to Start", FG_GREEN);
+	}
+
+	void ShowHighestScore()
+	{
+		int posX = GetScreenPositionByRatio(0, 0.8);
+		int posY = GetScreenPositionByRatio(1, 0.1);
+		ConsoleRenderer::ScreenDrawString(posX, posY - 2 , L"- Rank -", FG_WHITE);
+		for (int i = 0; i < RANKER_COUNT; i++)
+		{
+			ConsoleRenderer::ScreenDrawString(posX, posY + i * 2, rankerName[i], FG_WHITE);
+			char buffer[100];
+			_itoa_s(rankerScore[i], buffer, 10);
+			ConsoleRenderer::ScreenDrawString(posX + 8, posY + i * 2, buffer, FG_WHITE);
+		}
 	}
 
 	void InputGuide()

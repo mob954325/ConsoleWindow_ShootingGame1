@@ -1,9 +1,37 @@
 ﻿#include "EndSceneUI.h"
+#include "DebugUtility.h"
 
 namespace EndSceneUI
 {
 	float inputBlockTimer = 0;
 	float maxInputBlockTime = 3;
+
+	char buffer[100];
+	int bufferCount = 0;
+
+	int isActiveSetName = 1;
+	int isActiveSceneChange = 0;
+
+	char VirtualKeyToChar(UINT vk) {
+		BYTE keyboardState[256] = { 0 };
+		WORD ascii;
+		if (ToAscii(vk, MapVirtualKey(vk, MAPVK_VK_TO_VSC), keyboardState, &ascii, 0) == 1) {
+			return (char)ascii;
+		}
+		return '\0';
+	}
+
+	void Initialize()
+	{
+		inputBlockTimer = 0;
+		maxInputBlockTime = 3;
+
+		buffer[100];
+		bufferCount = 0;
+
+		isActiveSetName = 1;
+		isActiveSceneChange = 0;
+	}
 
 	void RenderUI()
 	{
@@ -48,9 +76,43 @@ namespace EndSceneUI
 
 		int helpTextPosX = GetScreenPositionByRatio(0, 0.4);
 		int helpTextPosY = GetScreenPositionByRatio(1, 0.8);
-		ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY, L"스페이스 눌러서 메뉴로 돌아가기", FG_WHITE);
 
-		if (Input::IsKeyPressed(VK_SPACE))
+		if (isActiveSetName == 1 && RankingFileUtility::CheckScore(GameManager::GetCurrentPlayScore()) == 1)
+		{
+			ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY - 2, "New Record !!!", FG_YELLOW);
+			ConsoleRenderer::ScreenDrawString(helpTextPosX - 10, helpTextPosY, "name : ", FG_WHITE);
+			ConsoleRenderer::ScreenDrawString(helpTextPosX - 10, helpTextPosY + 1, L"엔터로 입력 완료하기", FG_WHITE);
+			for (int i = 0; i < 255; i++)
+			{
+				if (bufferCount >= 0 && Input::IsKeyPressed(VK_BACK))
+				{
+					buffer[bufferCount] = '\0';
+					if(bufferCount > 0) bufferCount--;
+					break;	
+				}
+
+				if (Input::IsKeyPressed(i) && (i >= 0x30 && i <= 0x5A))
+				{
+					buffer[bufferCount++] = VirtualKeyToChar(i);
+				}
+			}
+			ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY, buffer, FG_WHITE);
+
+			if (Input::IsKeyPressed(VK_RETURN))
+			{
+				isActiveSetName = 0;
+				RankingFileUtility::UpdateScore(GameManager::GetCurrentPlayScore(), buffer);
+				RankingFileUtility::WriteScore();
+			}
+		}
+		else
+		{
+			isActiveSceneChange = 1;
+		}
+		
+		ConsoleRenderer::ScreenDrawString(helpTextPosX, helpTextPosY + 5, L"스페이스 눌러서 메뉴로 돌아가기", FG_WHITE);
+
+		if (isActiveSceneChange == 1 && Input::IsKeyPressed(VK_SPACE))
 		{
 			GameLoop::SceneChangeToNext();
 		}

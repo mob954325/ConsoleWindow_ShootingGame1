@@ -1,7 +1,6 @@
 ﻿#include "RankingFileUtility.h"
 
 #define MAX_BUFFER_SIZE 1024
-#define RANKER_COUNT 3
 
 namespace RankingFileUtility
 {
@@ -23,17 +22,35 @@ namespace RankingFileUtility
 		FILE* file = fopen(path, "r");
 		char* buffer = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char));
 		int rankCount = 0;
-		while (fgets(buffer, sizeof(buffer), file))
+		int loopCount = 0;
+		while (fgets(buffer, MAX_BUFFER_SIZE, file))
 		{
 			// 이름
-			int wordLength = strlen(buffer);
-			rankerName[rankCount] = (char*)malloc((wordLength + 1)* sizeof(char));
-			strcpy(rankerName[rankCount], buffer);
+			if (loopCount == 0)
+			{
+				int wordLength = strlen(buffer);
+				buffer[wordLength - 1] = '\0';
+				wordLength--;
 
-			// 숫자
-			fgets(buffer, sizeof(buffer), file);
-			int score = atoi(buffer);
-			rankerScore[rankCount++] = score;
+				rankerName[rankCount] = (char*)malloc((wordLength + 1) * sizeof(char));
+				strcpy(rankerName[rankCount], buffer);
+			}
+			else if (loopCount == 1)
+			{
+				// 숫자
+				int wordLength = strlen(buffer);
+				wordLength = strlen(buffer);
+				buffer[wordLength - 1] = '\0';
+				wordLength--;
+
+				int score = atoi(buffer);
+				rankerScore[rankCount++] = score;
+
+				loopCount = 0;
+				continue;
+			}
+
+			loopCount++;
 		}
 
 		free(buffer);
@@ -41,17 +58,17 @@ namespace RankingFileUtility
 
 	void Release()
 	{
-	/*	for (int i = 0; i < RANKER_COUNT; i++)
+		for (int i = 0; i < RANKER_COUNT; i++)
 		{
-			free(rankerName[i]);
-		}*/
+			//free(rankerName[i]);
+		}
 
 		free(rankerName);
 		free(rankerScore);
 		free(path);
 	}
 	
-	void ChceckScore(int score, const char* name)
+	int UpdateScore(int score, const char* name)
 	{
 		if (name == nullptr) name = "AAA";
 
@@ -62,13 +79,62 @@ namespace RankingFileUtility
 		{
 			if (score > rankerScore[i])
 			{
+				int prevScore = rankerScore[i];
+				char* prevName = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char));
+				strcpy(prevName, rankerName[i]);
+
+				for (int j = i + 1; j < RANKER_COUNT; j++)
+				{
+					if (prevScore > rankerScore[j])
+					{
+						int temp = rankerScore[j];
+						char* tempStr = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char));
+						strcpy(tempStr, rankerName[j]);
+
+						rankerScore[j] = prevScore;
+						strcpy(rankerName[j], prevName);
+
+						prevScore = temp;
+						strcpy(prevName, tempStr);
+
+						free(tempStr);
+						break;
+					}
+				}
+
+				for (int j = i + 1; j < RANKER_COUNT; j++)
+				{
+					if (prevScore > rankerScore[j])
+					{
+						rankerScore[j] = prevScore;
+						strcpy(rankerName[j], prevName);
+						break;
+					}
+				}
+
 				strcpy(rankerName[i], buffer);
 				rankerScore[i] = score;
-				break;
+				free(prevName);
+				return 1;
 			}
 		}
 
 		free(buffer);
+
+		return 0;
+	}
+
+	int CheckScore(int score)
+	{
+		for (int i = 0; i < RANKER_COUNT; i++)
+		{
+			if (score > rankerScore[i])
+			{
+				return 1;
+			}
+		}
+
+		return 0;
 	}
 	
 	int GetHighScore(int rank, char** buffer)
@@ -97,7 +163,7 @@ namespace RankingFileUtility
 			fprintf(file, "%s\n",rankerName[i]);
 
 			_itoa_s(rankerScore[i], scoreBuffer, 10);
-			fprintf(file, "%d", scoreBuffer);
+			fprintf(file, "%s\n", scoreBuffer);
 		}
 	}
 }

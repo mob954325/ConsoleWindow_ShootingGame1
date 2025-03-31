@@ -8,6 +8,7 @@ void changeScene();
 void MenuScene::Initialize()
 {
 	ConsoleRenderer::ScreenInit();
+	MenuSceneUI::Initialize();
 }
 
 void MenuScene::Update()

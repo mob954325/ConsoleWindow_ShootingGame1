@@ -42,6 +42,8 @@ namespace Player
 		if (playerInfo->health <= 0)
 		{
 			DebugLog("Player Dead\n");
+			SoundController::PlayEffectSound("GameOver.wav");
+			ParticleManager::ShowParticleAtPosition(playerInfo->position, ParticleType::Dead, 0.14);
 			ChangePlayerImmnueState(0);
 		}
 
@@ -95,6 +97,7 @@ namespace Player
 		if (Input::IsKeyDown('J'))
 		{
 			CreateBulletByLevel();
+			SoundController::PlayEffectSound("Shot.wav");
 		}
 
 		shotTimer = 0;
@@ -135,8 +138,11 @@ namespace Player
 		if (Input::IsKeyPressed('K'))
 		{
 			int totalScore = GameManager::KillALLOBJECTS(); // 점수 획득 후 모든 생성된 오브젝트 제거 
-			GameManager::AddPlayScore(totalScore);
+			BoomEffect(0.8f); // 폭탄 이펙트
+
 			playerWeaponInfo->boomCount--;
+			GameManager::AddPlayScore(totalScore);
+			SoundController::PlayEffectSound("Boom.wav");
 
 		}
 	}
@@ -166,8 +172,7 @@ namespace Player
 			}
 		}
 
-		RenderPlayerPosition();
-		BoomEffect(0.8f); // 폭탄 이펙트
+		//RenderPlayerPosition();
 	}
 
 	void RenderPlayerPosition()
@@ -199,7 +204,6 @@ namespace Player
 		
 		if (Input::IsKeyDown('K'))
 		{
-			// TODO : 나중이 폭발이펙트 바꾸기
 			ParticleManager::ShowParticleAtPosition({MAXWIDTH / 2 - MAXWIDTH / 5, MAXHEIGHT / 2 - MAXHEIGHT / 5 }, ParticleType::PlayerBoom, 0.2);
 		}
 	}

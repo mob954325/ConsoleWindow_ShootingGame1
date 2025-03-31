@@ -31,7 +31,7 @@ namespace GameManager
 		playerWeaponInfo = SetPlayerWeaponValue(3, 0);
 		playScore = 0;
 
-		bossElement = SetScreenElementValue({ 20, 20 }, 100, { MAXWIDTH, MAXHEIGHT / 2 }, { -30, 0 }, Tag::EnemyObject);
+		bossElement = SetScreenElementValue({ 20, 20 }, 120, { MAXWIDTH, MAXHEIGHT / 2 }, { -30, 0 }, Tag::EnemyObject);
 	}
 
 	void FreeAllLists()
