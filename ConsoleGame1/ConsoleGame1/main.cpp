@@ -7,6 +7,7 @@
 #include "GameLoop.h"
 #include "FileUtility.h"
 #include "SpriteData.h"
+#include "SoundController.h"
 
 #include <locale.h>
 
@@ -21,6 +22,9 @@ int wmain()
 	GameLoop::Initialize();
 	FileUtility::FileUtilityInitialize();
 	SpriteData::Initialize();
+	SoundController::Initialize();
+
+	SoundController::SoundPlay("test.wav"); // 소리 테스트용
 
 	while (!Input::IsKeyPressed(VK_HOME))
 	{
@@ -32,6 +36,7 @@ int wmain()
 		__CheckFPS();
 	};
 	
+	SoundController::Release();
 	SpriteData::FreeAllSprites();
 	FileUtility::FreeAll();
 	ConsoleRenderer::ScreenRelease();

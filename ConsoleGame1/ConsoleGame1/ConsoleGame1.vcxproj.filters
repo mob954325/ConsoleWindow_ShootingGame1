@@ -123,6 +123,9 @@
     <ClCompile Include="EnemyBoss.cpp">
       <Filter>소스 파일\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="SoundController.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="EnemyBoss.h">
       <Filter>헤더 파일\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundController.h">
+      <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
