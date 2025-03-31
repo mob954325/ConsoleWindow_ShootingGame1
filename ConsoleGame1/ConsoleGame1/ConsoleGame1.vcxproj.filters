@@ -126,6 +126,9 @@
     <ClCompile Include="SoundController.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="RankingFileUtility.cpp">
+      <Filter>소스 파일\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameLoop.h">
@@ -198,6 +201,9 @@
       <Filter>헤더 파일\Objects</Filter>
     </ClInclude>
     <ClInclude Include="SoundController.h">
+      <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="RankingFileUtility.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
