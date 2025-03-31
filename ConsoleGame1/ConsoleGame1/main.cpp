@@ -1,4 +1,4 @@
-#include "DebugUtility.h"
+﻿#include "DebugUtility.h"
 
 #include "Windows.h"
 #include "Time.h"
