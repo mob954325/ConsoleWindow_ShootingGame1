@@ -8,7 +8,7 @@
 #define MAXWIDTH 110
 #define MAXHEIGHT 24
 
-#define BULLET_SPEED 100
+#define BULLET_SPEED 50
 
 enum Tag
 {

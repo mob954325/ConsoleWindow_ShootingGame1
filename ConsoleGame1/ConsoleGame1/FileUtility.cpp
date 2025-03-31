@@ -1,10 +1,10 @@
-#include "FileUtility.h"
+ï»¿#include "FileUtility.h"
 
 #define MAX_BUFFER_SIZE 1024
 
 namespace FileUtility
 {
-	char* path = (char*)malloc(MAX_PATH * sizeof(char)); // TODO : ÇÒ´çÇØÁ¦
+	char* path = (char*)malloc(MAX_PATH * sizeof(char));
 	wchar_t* wPath = (wchar_t*)malloc(MAX_PATH * sizeof(wchar_t));
 	
 	void FileUtilityInitialize()
@@ -57,9 +57,9 @@ namespace FileUtility
 		strcpy_s(maxPath, MAX_PATH, path);
 		strcat_s(maxPath, MAX_PATH, fileName);
 
-		// ÆÄÀÏ ¿­±â
+		// íŒŒì¼ ì—´ê¸°
 		FILE* file = fopen(maxPath, "r");
-		if (!file) // ÆÄÀÏ ¿­±â ½ÇÆĞ
+		if (!file) // íŒŒì¼ ì—´ê¸° ì‹¤íŒ¨
 		{ 
 			free(maxPath);
 			return NULL;
@@ -67,15 +67,15 @@ namespace FileUtility
 
 		int rowCount = 0;
 		wchar_t** words = (wchar_t**)malloc(MAX_BUFFER_SIZE * sizeof(wchar_t*));
-		char buffer[MAX_BUFFER_SIZE]; // char buffer·Î ¸ÕÀú ÀĞ¾î¿À±â
-		wchar_t wbuffer[MAX_BUFFER_SIZE]; // wchar_t·Î º¯È¯ÇÒ ¹öÆÛ
+		char buffer[MAX_BUFFER_SIZE]; // char bufferë¡œ ë¨¼ì € ì½ì–´ì˜¤ê¸°
+		wchar_t wbuffer[MAX_BUFFER_SIZE]; // wchar_të¡œ ë³€í™˜í•  ë²„í¼
 
 		while (fgets(buffer, MAX_BUFFER_SIZE, file))
 		{
-			int len = MultiByteToWideChar(CP_UTF8, 0, buffer, -1, wbuffer, MAX_BUFFER_SIZE); // char -> wchar_t·Î 
+			int len = MultiByteToWideChar(CP_UTF8, 0, buffer, -1, wbuffer, MAX_BUFFER_SIZE); // char -> wchar_të¡œ 
 			words[rowCount] = (wchar_t*)malloc((len + 1) * sizeof(wchar_t));
 
-			if (words[rowCount] == NULL) // ¸Ş¸ğ¸® ÇÒ´ç ½ÇÆĞ
+			if (words[rowCount] == NULL) // ë©”ëª¨ë¦¬ í• ë‹¹ ì‹¤íŒ¨
 			{
 				fclose(file);
 				free(maxPath);
@@ -87,7 +87,7 @@ namespace FileUtility
 				return NULL;
 			}
 
-			// ¸¶Áö¸· ÁÙ¹Ù²Ş ¹®ÀÚ Á¦°Å
+			// ë§ˆì§€ë§‰ ì¤„ë°”ê¿ˆ ë¬¸ì ì œê±°
 			for (int i = 0; i < len; i++)
 			{
 				if (wbuffer[i] == '\n')

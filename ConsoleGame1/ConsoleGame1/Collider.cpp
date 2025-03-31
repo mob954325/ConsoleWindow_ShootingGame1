@@ -122,7 +122,6 @@ namespace Collider
 		Node* itemList = GameManager::GetItemList();
 		int itemCount = NodeCount(itemList);
 
-		// TODO : 최대 값 상수 추가하기
 		// 아이템 확인
 		for (int i = 0; i < itemCount; i++)
 		{
