@@ -140,7 +140,7 @@
     <ClCompile Include="EndSceneUI.cpp" />
     <ClCompile Include="EnemyBoss.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
-    <ClCompile Include="FileUtility.cpp" />
+    <ClCompile Include="SpriteFileUtility.cpp" />
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="ItemManager.cpp" />
@@ -167,7 +167,7 @@
     <ClInclude Include="EndSceneUI.h" />
     <ClInclude Include="EnemyBoss.h" />
     <ClInclude Include="EnemyManager.h" />
-    <ClInclude Include="FileUtility.h" />
+    <ClInclude Include="SpriteFileUtility.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="ItemManager.h" />

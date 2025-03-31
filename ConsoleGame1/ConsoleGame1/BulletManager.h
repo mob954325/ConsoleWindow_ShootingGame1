@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ConsoleRenderer.h"
 #include "List.h"
 #include "Time.h"
@@ -7,7 +7,7 @@
 
 namespace BulletManager
 {
-	void BulletManagerInitialize();
+	void Initialize();
 	void CreateBullet(Vector2 spawnPos, Vector2 speed, Tag tag);
 	void CreateBullet(Vector2 spawnPos, Vector2 scale, Vector2 speed, Tag tag);
 	void BulletUpdate();

@@ -7,7 +7,7 @@ namespace BulletManager
 {
 	Node*& BulletList = GameManager::GetBulletList();	
 
-	void BulletManagerInitialize()
+	void Initialize()
 	{
 		BulletList = GameManager::GetBulletList();
 	}

@@ -6,7 +6,7 @@
 
 namespace PlayScreenUI
 {
-	void PlayScreenUIInitialize();
+	void Initialize();
 	void RenderUI();
 	void RanderGameFrame();
 	void RenderPlayerHp();

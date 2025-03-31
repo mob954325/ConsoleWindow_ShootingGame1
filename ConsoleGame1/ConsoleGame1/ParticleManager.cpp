@@ -1,17 +1,17 @@
-#include "ParticleManager.h";
+ï»¿#include "ParticleManager.h";
 
 #include "DebugUtility.h"
 namespace ParticleManager
 {
 	int FindEmptyElement();
-	void RenderPaticleByType(ScreenElement *obj); // Ã¼·ÂÀ¸·Î ½ºÇÁ¶óÀÌÆ® ÀÎµ¦½º ±¸ºĞ
+	void RenderPaticleByType(ScreenElement *obj); // ì²´ë ¥ìœ¼ë¡œ ìŠ¤í”„ë¼ì´íŠ¸ ì¸ë±ìŠ¤ êµ¬ë¶„
 
-	// ÆÄÆ¼Å¬ °³¼ö Á¦ÇÑ 16°³
+	// íŒŒí‹°í´ ê°œìˆ˜ ì œí•œ 16ê°œ
 	ScreenElement particleObjects[MAX_PARTICLE_COUNT];
 
-	void ParticleManagerInitialize()
+	void Initialize()
 	{
-		// ¸ğµç ¿ä¼Ò ÃÊ±âÈ­
+		// ëª¨ë“  ìš”ì†Œ ì´ˆê¸°í™”
 		for (int i = 0; i < MAX_PARTICLE_COUNT; i++)
 		{
 			particleObjects[i] = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None);
@@ -33,7 +33,7 @@ namespace ParticleManager
 
 	void ShowParticleAtPosition(Vector2 vec, ParticleType type, float frameTime)
 	{
-		// ºñ¾îÀÖ´Â ÆÄÆ¼Å¬ À§Ä¡ Ã£±â
+		// ë¹„ì–´ìˆëŠ” íŒŒí‹°í´ ìœ„ì¹˜ ì°¾ê¸°
 		int index = FindEmptyElement();
 
 		particleObjects[index].position = vec;
@@ -63,30 +63,30 @@ namespace ParticleManager
 			}
 		}
 
-		return 0; // ¾øÀ½
+		return 0; // ì—†ìŒ
 	}
 
-	// note : ÀÌ°Å °°Àº ³»¿ë º¹»ç ºÙ¿©³Ö±â ÇÑ°Çµ¥ ÇÕÄ¡¸é ½Ã°£°ü¸®°¡ ¾ÈµÇ¼­ ÀÏ´Ü ÄÚµå ÀÌ·¸°Ô ÀÛ¼ºÇÔ [0330]
+	// note : ì´ê±° ê°™ì€ ë‚´ìš© ë³µì‚¬ ë¶™ì—¬ë„£ê¸° í•œê±´ë° í•©ì¹˜ë©´ ì‹œê°„ê´€ë¦¬ê°€ ì•ˆë˜ì„œ ì¼ë‹¨ ì½”ë“œ ì´ë ‡ê²Œ ì‘ì„±í•¨ [0330]
 	void RenderPaticleByType(ScreenElement *obj)
 	{
 		if (obj->additionalElement.particleType == ParticleType::Hit)
 		{
 			obj->remainTime -= Time::GetDeltaTime();
 
-			// ÀÎµ¦½º °áÁ¤ -> ½Ã°£ÀÌ ³¡³¯¶§¸¶´Ù ÀÎµ¦½º °¨¼Ò
+			// ì¸ë±ìŠ¤ ê²°ì • -> ì‹œê°„ì´ ëë‚ ë•Œë§ˆë‹¤ ì¸ë±ìŠ¤ ê°ì†Œ
 			if (obj->remainTime <= 0)
 			{
 				obj->health--;
 				obj->remainTime = obj->maxTime;
 			}
 
-			if (obj->health <= 0) // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ³¡
+			if (obj->health <= 0) // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ë
 			{
-				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // ÇØ´ç ÆÄÆ¼Å¬ Á¤º¸ ÃÊ±âÈ­
+				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // í•´ë‹¹ íŒŒí‹°í´ ì •ë³´ ì´ˆê¸°í™”
 			}
-			else // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ÁøÇà
+			else // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ì§„í–‰
 			{
-				// ÆÄÆ¼Å¬ Ãâ·Â
+				// íŒŒí‹°í´ ì¶œë ¥
 				int size = 0;
 				wchar_t** t = SpriteData::GetHitEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)
@@ -99,20 +99,20 @@ namespace ParticleManager
 		{
 			obj->remainTime -= Time::GetDeltaTime();
 
-			// ÀÎµ¦½º °áÁ¤ -> ½Ã°£ÀÌ ³¡³¯¶§¸¶´Ù ÀÎµ¦½º °¨¼Ò
+			// ì¸ë±ìŠ¤ ê²°ì • -> ì‹œê°„ì´ ëë‚ ë•Œë§ˆë‹¤ ì¸ë±ìŠ¤ ê°ì†Œ
 			if (obj->remainTime <= 0)
 			{
 				obj->health--;
 				obj->remainTime = obj->maxTime;
 			}
 
-			if (obj->health <= 0) // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ³¡
+			if (obj->health <= 0) // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ë
 			{
-				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // ÇØ´ç ÆÄÆ¼Å¬ Á¤º¸ ÃÊ±âÈ­
+				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // í•´ë‹¹ íŒŒí‹°í´ ì •ë³´ ì´ˆê¸°í™”
 			}
-			else // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ÁøÇà
+			else // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ì§„í–‰
 			{
-				// ÆÄÆ¼Å¬ Ãâ·Â
+				// íŒŒí‹°í´ ì¶œë ¥
 				int size = 0;
 				wchar_t** t = SpriteData::GetBoomEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)
@@ -125,20 +125,20 @@ namespace ParticleManager
 		{
 			obj->remainTime -= Time::GetDeltaTime();
 
-			// ÀÎµ¦½º °áÁ¤ -> ½Ã°£ÀÌ ³¡³¯¶§¸¶´Ù ÀÎµ¦½º °¨¼Ò
+			// ì¸ë±ìŠ¤ ê²°ì • -> ì‹œê°„ì´ ëë‚ ë•Œë§ˆë‹¤ ì¸ë±ìŠ¤ ê°ì†Œ
 			if (obj->remainTime <= 0)
 			{
 				obj->health--;
 				obj->remainTime = obj->maxTime;
 			}
 
-			if (obj->health <= 0) // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ³¡
+			if (obj->health <= 0) // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ë
 			{
-				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // ÇØ´ç ÆÄÆ¼Å¬ Á¤º¸ ÃÊ±âÈ­
+				*obj = SetScreenElementValue({ 0,0 }, 0, { 0,0 }, { 0,0 }, Tag::None); // í•´ë‹¹ íŒŒí‹°í´ ì •ë³´ ì´ˆê¸°í™”
 			}
-			else // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® ÁøÇà
+			else // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ ì§„í–‰
 			{
-				// ÆÄÆ¼Å¬ Ãâ·Â
+				// íŒŒí‹°í´ ì¶œë ¥
 				int size = 0;
 				wchar_t** t = SpriteData::GetPlayerBoomEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)

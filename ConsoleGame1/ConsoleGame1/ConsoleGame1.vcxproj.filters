@@ -102,7 +102,7 @@
     <ClCompile Include="PlayScreenUI.cpp">
       <Filter>소스 파일\UI</Filter>
     </ClCompile>
-    <ClCompile Include="FileUtility.cpp">
+    <ClCompile Include="SpriteFileUtility.cpp">
       <Filter>소스 파일\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="MenuSceneUI.cpp">
@@ -173,7 +173,7 @@
     <ClInclude Include="PlayScreenUI.h">
       <Filter>헤더 파일\UI</Filter>
     </ClInclude>
-    <ClInclude Include="FileUtility.h">
+    <ClInclude Include="SpriteFileUtility.h">
       <Filter>헤더 파일\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="MenuSceneUI.h">

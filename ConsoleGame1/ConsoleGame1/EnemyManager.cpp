@@ -16,7 +16,7 @@ namespace EnemyManager
 
 	float spawnTimer = 0.0f;
 
-	void EnemyManagerInitialize()
+	void Initialize()
 	{
 		EnemyList = GameManager::GetEnemyList();
 	}

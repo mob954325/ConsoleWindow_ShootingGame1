@@ -92,7 +92,7 @@ namespace Player
 	{
 		if (shotTimer < maxShotTimer) return;
 
-		if (Input::IsKeyDown('F'))
+		if (Input::IsKeyDown('J'))
 		{
 			CreateBulletByLevel();
 		}
@@ -132,7 +132,7 @@ namespace Player
 	{
 		if (playerWeaponInfo->boomCount <= 0) return;
 
-		if (Input::IsKeyPressed('G'))
+		if (Input::IsKeyPressed('K'))
 		{
 			int totalScore = GameManager::KillALLOBJECTS(); // 점수 획득 후 모든 생성된 오브젝트 제거 
 			GameManager::AddPlayScore(totalScore);
@@ -157,11 +157,11 @@ namespace Player
 				int currY = (int)playerInfo->position.y - playerInfo->scale.y / 2 + i;
 				if (currX == (int)playerInfo->position.x && currY == (int)playerInfo->position.y)
 				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'P', FG_RED);
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'P', FG_WHITE);
 				}
 				else
 				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_GREEN);
+					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_WHITE);
 				}
 			}
 		}
@@ -197,7 +197,7 @@ namespace Player
 	{
 		if (playerWeaponInfo->boomCount <= 0) return;
 		
-		if (Input::IsKeyDown('G'))
+		if (Input::IsKeyDown('K'))
 		{
 			// TODO : 나중이 폭발이펙트 바꾸기
 			ParticleManager::ShowParticleAtPosition({MAXWIDTH / 2 - MAXWIDTH / 5, MAXHEIGHT / 2 - MAXHEIGHT / 5 }, ParticleType::PlayerBoom, 0.2);

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "ConsoleRenderer.h"
 #include "DataTypes.h"
 #include "List.h"
@@ -11,7 +11,7 @@
 #define MAX_ENEMY_SPEED 17
 #define MIN_ENEMY_SPEED 8
 
-#define	SMOL_SHOT_DELAY 0.3 // °ø°Ý ¾ÈÇÔ
+#define	SMOL_SHOT_DELAY 0.3 // ê³µê²© ì•ˆí•¨
 #define	MEDIUM_SHOT_DELAY 1
 #define	LARGE_SHOT_DELAY 2
 
@@ -19,7 +19,7 @@
 
 namespace EnemyManager
 {
-	void EnemyManagerInitialize();
+	void Initialize();
 	void EnemyUpdate();
 	void EnemyRender();
 

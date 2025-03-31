@@ -5,7 +5,7 @@
 #include "ConsoleRenderer.h"
 #include "Input.h"
 #include "GameLoop.h"
-#include "FileUtility.h"
+#include "SpriteFileUtility.h"
 #include "SpriteData.h"
 #include "SoundController.h"
 
@@ -20,11 +20,11 @@ int wmain()
 	ConsoleRenderer::ScreenInit();
 	Time::InitTime();
 	GameLoop::Initialize();
-	FileUtility::FileUtilityInitialize();
+	SpriteFileUtility::Initialize();
 	SpriteData::Initialize();
 	SoundController::Initialize();
 
-	SoundController::SoundPlay("test.wav"); // 소리 테스트용
+	//SoundController::SoundPlay("test.wav"); // 소리 테스트용
 
 	while (!Input::IsKeyPressed(VK_HOME))
 	{
@@ -38,7 +38,7 @@ int wmain()
 	
 	SoundController::Release();
 	SpriteData::FreeAllSprites();
-	FileUtility::FreeAll();
+	SpriteFileUtility::FreeAll();
 	ConsoleRenderer::ScreenRelease();
 
 	DUMP_LEAKS();

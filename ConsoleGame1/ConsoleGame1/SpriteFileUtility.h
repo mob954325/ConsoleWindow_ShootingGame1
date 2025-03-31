@@ -9,9 +9,9 @@
 #include <fstream>
 #include <filesystem>
 
-namespace FileUtility
+namespace SpriteFileUtility
 {
-	void FileUtilityInitialize();
+	void Initialize();
 	// 내부에서 버퍼 동적 할당함
 	int GetTextFromFile(const char* fileName, char*** outBuffer); 
 	// 내부에서 버퍼 동적 할당함

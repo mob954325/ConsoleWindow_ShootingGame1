@@ -25,7 +25,7 @@ namespace PlayScreenUI
 	int hpGaugeCount = 0; // 최대 10
 	int isBossAppeared = 0; // 보스 등장 확인 -> 등장 애니메이션용 변수
 
-	void PlayScreenUIInitialize()
+	void Initialize()
 	{
 		gameState = GameState::BeforeStart();
 		playerInfo = GameManager::GetPlayerInfo();
@@ -73,7 +73,7 @@ namespace PlayScreenUI
 		// 체력 그림
 		for (int i = 0; i < currHealth; i++)
 		{
-			ConsoleRenderer::ScreenDrawChar(i + gap , MAXHEIGHT + gap, 'I', FG_BLUE_DARK);
+			ConsoleRenderer::ScreenDrawChar(i + gap , MAXHEIGHT + gap, L'█', FG_BLUE_DARK);
 		}
 	}
 

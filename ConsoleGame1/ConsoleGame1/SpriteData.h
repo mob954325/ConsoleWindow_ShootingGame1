@@ -1,10 +1,10 @@
-#pragma once
-#include "FileUtility.h"
+ï»¿#pragma once
+#include "SpriteFileUtility.h"
 
 #include "stdio.h"
 #include "stdlib.h"
 
-// ÇÁ·¹ÀÓ °³¼ö
+// í”„ë ˆìž„ ê°œìˆ˜
 #define HITEFFECT_COUNT 3
 #define DEADEFFECT_COUNT 5
 #define PLAYERBOOMEFFECT_COUNT 5

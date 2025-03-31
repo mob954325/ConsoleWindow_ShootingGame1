@@ -9,7 +9,7 @@ namespace Boss
 	ScreenElement* BossInfo = {};
 
 	float bossShootTimer = 0;
-	float maxBossShootTime = 1;
+	float maxBossShootTime = 0.7;
 
 	void Initialize()
 	{
@@ -67,7 +67,6 @@ namespace Boss
 
 	void BossShoot()
 	{
-		// TODO 보스 패턴 늘리기 
 		float attackProbability = 100 / BOSS_ATTACK_COUNT;
 		float randomAttack = rand() % 101; // 아마 마지막 공격이 더 많이 나갈것임		
 
@@ -75,14 +74,12 @@ namespace Boss
 
 		if (randomAttack <= attackProbability) // 1
 		{
-			DebugLog("boss1\n");
 			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y -5 }, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
 			BulletManager::CreateBullet({ BossInfo->position.x - 10, BossInfo->position.y }, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
 			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y + 5}, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
 		}
 		else if (randomAttack <= attackProbability * 2)
 		{
-			DebugLog("boss2\n");
 			for (int i = 0; i < 5; i++)
 			{
 				// 위
@@ -97,7 +94,6 @@ namespace Boss
 		}
 		else if (randomAttack <= attackProbability * 3)
 		{
-			DebugLog("boss3\n");
 			float speedX = player->position.x - (BossInfo->position.x);
 			float speedY = player->position.y - (BossInfo->position.y);
 			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y }, {5, 5}, { speedX, speedY }, Tag::EnemyObject);

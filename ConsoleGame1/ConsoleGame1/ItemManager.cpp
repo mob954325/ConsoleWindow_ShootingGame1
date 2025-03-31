@@ -10,14 +10,14 @@ namespace ItemManager
 
 	Node*& ItemList = GameManager::GetItemList();
 
-	void ItemManagerInitialize()
+	void Initialize()
 	{
 		ItemList = GameManager::GetItemList();
 	}
 	
 	void CreateItem(Vector2 spawnPos, Vector2 speed, ItemType type)
 	{
-		ScreenElement ItemData = SetItemElementValue({ 1, 1 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
+		ScreenElement ItemData = SetItemElementValue({ 2, 2 }, MAX_BOUNCE_NUMBER, { (spawnPos.x + 1), spawnPos.y }, speed, type);
 		AddNode(&ItemList, ItemData);
 	}
 	
@@ -71,13 +71,13 @@ namespace ItemManager
 						switch (currItemType)
 						{
 						case WeaponUpgrade:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'力', FG_SKY_DARK);
+							ConsoleRenderer::ScreenDrawChar(currX, currY, L'U', FG_SKY_DARK);
 							break;
 						case BoomItem:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'爆', FG_SKY_DARK);
+							ConsoleRenderer::ScreenDrawChar(currX, currY, L'B', FG_YELLOW);
 							break;
 						case HpRestore:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'体', FG_SKY_DARK);
+							ConsoleRenderer::ScreenDrawChar(currX, currY, L'H', FG_GREEN);
 							break;
 						default:
 							ConsoleRenderer::ScreenDrawChar(currX, currY, L'M', FG_SKY_DARK);

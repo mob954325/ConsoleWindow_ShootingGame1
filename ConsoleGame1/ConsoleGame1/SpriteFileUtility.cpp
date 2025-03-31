@@ -1,13 +1,13 @@
-﻿#include "FileUtility.h"
+﻿#include "SpriteFileUtility.h"
 
 #define MAX_BUFFER_SIZE 1024
 
-namespace FileUtility
+namespace SpriteFileUtility
 {
 	char* path = (char*)malloc(MAX_PATH * sizeof(char));
 	wchar_t* wPath = (wchar_t*)malloc(MAX_PATH * sizeof(wchar_t));
 	
-	void FileUtilityInitialize()
+	void Initialize()
 	{
 		GetCurrentDirectoryA(MAX_PATH, path);
 		GetCurrentDirectoryW(MAX_PATH, wPath);

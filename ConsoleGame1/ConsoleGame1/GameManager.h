@@ -24,7 +24,7 @@ enum GameResultState
 
 namespace GameManager
 {
-	void GameManagerInitialize();
+	void Initialize();
 	void FreeAllLists();
 
 	Node*& GetBulletList();

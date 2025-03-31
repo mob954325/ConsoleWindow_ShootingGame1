@@ -4,12 +4,12 @@ void TestVictory();
 
 void PlayScene::Initialize()
 {
-	GameManager::GameManagerInitialize(); // TODO : 이름 줄이기
-	EnemyManager::EnemyManagerInitialize();
-	BulletManager::BulletManagerInitialize();
-	ItemManager::ItemManagerInitialize();
-	ParticleManager::ParticleManagerInitialize();
-	PlayScreenUI::PlayScreenUIInitialize();
+	GameManager::Initialize(); // TODO : 이름 줄이기
+	EnemyManager::Initialize();
+	BulletManager::Initialize();
+	ItemManager::Initialize();
+	ParticleManager::Initialize();
+	PlayScreenUI::Initialize();
 	Time::InitTime();
 
 	Player::PlayerInit();
@@ -31,6 +31,7 @@ void PlayScene::Update()
 	else if (GameManager::GetBossInfo()->health <= 0)
 	{
 		int enemyScore = GameManager::GetScoreBySize(*GameManager::GetBossInfo());
+		enemyScore *= 0.25f;
 		GameManager::AddPlayScore(enemyScore); // 아마 게임 끝날때까지 계속 점수 증가할꺼임
 		GameManager::SetGameResultState(GameResultState::Win);
 		GameManager::SetGameState(GameState::PlayEnd);
@@ -43,10 +44,11 @@ void PlayScene::Update()
 	if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
 	{
 		Boss::BossUpdate();
+		EnemyManager::SetEnemySpanwer(3);
 	}
 	else
 	{
-		EnemyManager::SetEnemySpanwer(2);
+		EnemyManager::SetEnemySpanwer(1);
 	}
 
 	BulletManager::BulletUpdate();

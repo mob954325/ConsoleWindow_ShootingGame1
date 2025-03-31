@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "ConsoleRenderer.h"
 #include "Vector.h"
 #include "SpriteData.h"
@@ -9,10 +9,10 @@
 
 namespace ParticleManager
 {
-	void ParticleManagerInitialize();
+	void Initialize();
 	void ParticleRender();
 	void ShowParticleAtPosition(int x, int y, ParticleType type, float frameTime);
 	void ShowParticleAtPosition(Vector2 vec, ParticleType type, float frameTime);
 }
 
-// TODO ÀÛ¼ºÈÄ ºÒÇÊ¿äÇÑ spriteData Çì´õ ¹Ş´Â ¼Ò½ºÆÄÀÏ È®ÀÎÇÏ±â
+// TODO ì‘ì„±í›„ ë¶ˆí•„ìš”í•œ spriteData í—¤ë” ë°›ëŠ” ì†ŒìŠ¤íŒŒì¼ í™•ì¸í•˜ê¸°

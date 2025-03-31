@@ -20,7 +20,7 @@ namespace GameManager
 	float changeSceneTimer = 0;
 	float maxChangeSceneTime = 5;
 
-	void GameManagerInitialize()
+	void Initialize()
 	{
 		// 초기화
 		gameState = GameState::BeforeStart;
