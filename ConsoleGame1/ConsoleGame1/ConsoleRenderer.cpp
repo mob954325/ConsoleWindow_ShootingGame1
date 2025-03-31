@@ -1,4 +1,4 @@
-#include "ConsoleRenderer.h"
+﻿#include "ConsoleRenderer.h"
 #include <stdio.h>
 
 namespace ConsoleRenderer
@@ -124,8 +124,8 @@ namespace ConsoleRenderer
 
         DWORD nNumberOfBytesToWrite = (DWORD)wcslen(pStr);
         //특정 위치에 문자열을 출력한다.
-        WriteConsoleOutputCharacterW(hScreenBuffer[nScreenBufferIndex], pStr, nNumberOfBytesToWrite, cdPos, &dwCharsWritten);
-        bRval = FillConsoleOutputAttribute(hScreenBuffer[nScreenBufferIndex], attr, nNumberOfBytesToWrite, cdPos, &dwCharsWritten);
+        WriteConsoleOutputCharacterW(hScreenBuffer[nScreenBufferIndex], pStr, nNumberOfBytesToWrite,cdPos, &dwCharsWritten);
+        bRval = FillConsoleOutputAttribute(hScreenBuffer[nScreenBufferIndex], attr, nNumberOfBytesToWrite * 2, cdPos, &dwCharsWritten);
         if (bRval == false) OutputDebugStringA("Error, FillConsoleOutputAttribute()\n");
         return bRval;
     }

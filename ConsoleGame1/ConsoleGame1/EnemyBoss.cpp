@@ -19,12 +19,6 @@ namespace Boss
 
 	void BossUpdate()
 	{
-		if (BossInfo->health <= 0)
-		{
-			int enemyScore = GameManager::GetScoreBySize(*BossInfo);
-			GameManager::AddPlayScore(enemyScore); // 아마 게임 끝날때까지 계속 점수 증가할꺼임
-		}
-
 		// 행동
 		BossInfo->remainTime -= Time::GetDeltaTime();
 		if (BossInfo->position.x > MAXWIDTH - 10)
@@ -39,8 +33,6 @@ namespace Boss
 				BossInfo->remainTime = BossInfo->maxTime;
 				BossShoot();
 			}
-			// 보스 체력 UI 활성화
-			// 적 공격 활성화
 		}
 	}
 
@@ -77,25 +69,16 @@ namespace Boss
 	{
 		// TODO 보스 패턴 늘리기 
 		float attackProbability = 100 / BOSS_ATTACK_COUNT;
-		float randomAttack = rand() % (int)attackProbability; // 아마 마지막 공격이 더 많이 나갈것임		
+		float randomAttack = rand() % 101; // 아마 마지막 공격이 더 많이 나갈것임		
 
 		ScreenElement* player = GameManager::GetPlayerInfo();
-
-		for (int i = 0; i < 3; i++)
-		{
-			// 위
-			float speedX_Top = player->position.x - (BossInfo->position.x - 5);
-			float speedY_Top = player->position.y - (BossInfo->position.y - 5);
-			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y - 5 + i}, { speedX_Top, speedY_Top }, Tag::EnemyObject);
-			// 아래
-			float speedX_Bottom = player->position.x - (BossInfo->position.x - 5);
-			float speedY_Bottom = player->position.y - (BossInfo->position.y + 5);
-			BulletManager::CreateBullet({ (BossInfo->position.x - 5), BossInfo->position.y + 5 + i}, { speedX_Bottom, speedY_Bottom }, Tag::EnemyObject);
-		}
 
 		if (randomAttack <= attackProbability) // 1
 		{
 			DebugLog("boss1\n");
+			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y -5 }, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+			BulletManager::CreateBullet({ BossInfo->position.x - 10, BossInfo->position.y }, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y + 5}, { 5, 5 }, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
 		}
 		else if (randomAttack <= attackProbability * 2)
 		{
@@ -115,7 +98,9 @@ namespace Boss
 		else if (randomAttack <= attackProbability * 3)
 		{
 			DebugLog("boss3\n");
-			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y }, {5, 5}, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
+			float speedX = player->position.x - (BossInfo->position.x);
+			float speedY = player->position.y - (BossInfo->position.y);
+			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y }, {5, 5}, { speedX, speedY }, Tag::EnemyObject);
 		}
 	}
 }

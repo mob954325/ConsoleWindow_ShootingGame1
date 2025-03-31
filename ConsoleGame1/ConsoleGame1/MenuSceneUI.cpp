@@ -1,4 +1,4 @@
-#include "MenuSceneUI.h";
+﻿#include "MenuSceneUI.h";
 
 namespace MenuSceneUI
 {
@@ -10,9 +10,9 @@ namespace MenuSceneUI
 
 	void TitleUI()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.5);	
+		int posX = GetScreenPositionByRatio(0, 0.49);	
 		int posY = GetScreenPositionByRatio(1, 0.3);	
-		ConsoleRenderer::ScreenDrawString(posX, posY, "Space Shooting", FG_GREEN);
+		ConsoleRenderer::ScreenDrawString(posX + 1, posY, "Space Shooting", FG_GREEN);
 	}
 
 	void ShowPressStartUI()

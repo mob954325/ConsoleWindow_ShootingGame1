@@ -7,7 +7,7 @@
 #include "GameLoop.h"
 
 #define SCORE_SCALE 100
-#define BOSS_APPEAR_TIME 5
+#define BOSS_APPEAR_TIME 3
 
 enum GameState
 {

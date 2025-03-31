@@ -15,6 +15,7 @@ namespace PlayScreenUI
 	void RenderScore();
 	void RenderProfile();
 	void RenderBossHp();
+	void RenderBossWarning();
 
 	void ActivePlayerHitEffect();
 }

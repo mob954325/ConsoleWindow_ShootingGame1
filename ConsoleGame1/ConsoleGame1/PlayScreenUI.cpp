@@ -17,6 +17,11 @@ namespace PlayScreenUI
 	// boss용 변수들
 	float bossHpAppearTimer = 0;
 	float maxBossHpAppearTime = 0.04f;
+
+	float bossWarningUITimer = 0;
+	float maxBossWarningUITime = 0.08f;
+	int warningType = 0; // 0 . 1
+
 	int hpGaugeCount = 0; // 최대 10
 	int isBossAppeared = 0; // 보스 등장 확인 -> 등장 애니메이션용 변수
 
@@ -31,6 +36,7 @@ namespace PlayScreenUI
 	void RenderUI()
 	{
 		bossHpAppearTimer += Time::GetDeltaTime();
+		bossWarningUITimer += Time::GetDeltaTime();
 		feedBackTimer += Time::GetDeltaTime();
 		if (feedBackTimer > maxFeedBackTime) isPlayerHit = 0;
 
@@ -40,6 +46,8 @@ namespace PlayScreenUI
 		RenderBoomCount();
 		RenderScore();
 		RenderProfile();
+
+		RenderBossWarning();
 
 		if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
 		{
@@ -167,6 +175,25 @@ namespace PlayScreenUI
 			{
 				ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
 			}
+		}
+	}
+
+	void RenderBossWarning()
+	{
+		float totalTime = Time::GetTotalTime();
+		if (totalTime >= BOSS_APPEAR_TIME - 2 && totalTime <= BOSS_APPEAR_TIME)
+		{
+			if (bossWarningUITimer > maxBossWarningUITime)
+			{
+				bossHpAppearTimer = 0;
+				warningType = warningType == 1 ? 0 : 1;
+			}
+
+			int posX = GetScreenPositionByRatio(0, 0.3);
+			int posY = GetScreenPositionByRatio(1, 0.4);
+
+			if(warningType == 1)ConsoleRenderer::ScreenDrawString(posX, posY, L"██████████████████ Boss incoming ██████████████████", FG_YELLOW_DARK);
+			if(warningType == 0)ConsoleRenderer::ScreenDrawString(posX, posY, L"██████████████████ Boss incoming ██████████████████", FG_RED_DARK);
 		}
 	}
 
