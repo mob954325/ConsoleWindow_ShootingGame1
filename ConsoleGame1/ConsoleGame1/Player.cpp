@@ -19,6 +19,7 @@ namespace Player
 
 	enum PlayerState state;
 	Vector2 nextVec = { 0,0 };
+	Vector2 normalSpeed = { 0,0 };
 
 	float shotTimer = 0;
 	float maxShotTimer = PLAYER_SHOTDELAY;
@@ -29,6 +30,7 @@ namespace Player
 		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 		state = PlayerState::NonImmune;
 		nextVec = { 2,2 };
+		normalSpeed = playerInfo->speed;
 
 		return 1;
 	}
@@ -70,6 +72,14 @@ namespace Player
 		{
 			nextVec.x += playerInfo->speed.x * Time::GetDeltaTime();
 			//__PrintDebugLog("Front\n");
+		}
+		if (Input::IsKeyPressed(VK_SHIFT)) // 이동 속도 증가
+		{
+			playerInfo->speed = { playerInfo->speed.x * 1.5f, playerInfo->speed.y * 1.5f };
+		}
+		if (Input::IsKeyReleased(VK_SHIFT)) // 원래 이동속도로 돌리기
+		{
+			playerInfo->speed = normalSpeed;
 		}
 
 		if (GameManager::CheckVaildPosition(nextVec, playerInfo->scale) == 1)

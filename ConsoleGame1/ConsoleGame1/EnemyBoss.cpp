@@ -95,10 +95,11 @@ namespace Boss
 
 		if (randomAttack <= attackProbability) // 1
 		{
-		
+			DebugLog("boss1\n");
 		}
 		else if (randomAttack <= attackProbability * 2)
 		{
+			DebugLog("boss2\n");
 			for (int i = 0; i < 5; i++)
 			{
 				// 위
@@ -113,6 +114,7 @@ namespace Boss
 		}
 		else if (randomAttack <= attackProbability * 3)
 		{
+			DebugLog("boss3\n");
 			BulletManager::CreateBullet({ BossInfo->position.x - 5, BossInfo->position.y }, {5, 5}, { -BULLET_SPEED, 0 }, Tag::EnemyObject);
 		}
 	}

@@ -66,7 +66,7 @@ namespace Collider
 				}
 
 				// 보스
-				if (Time::GetTotalTime() > 60)
+				if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
 				{
 					if (boss->scale.x == boss->scale.y)
 					{

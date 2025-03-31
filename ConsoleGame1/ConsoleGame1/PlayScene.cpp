@@ -37,14 +37,14 @@ void PlayScene::Update()
 
 
 	// 업데이트 루프
+	if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
+	{
 		Boss::BossUpdate();
-	//if (Time::GetTotalTime() > 60)
-	//{
-	//}
-	//else
-	//{
-	//	EnemyManager::SetEnemySpanwer(2);
-	//}
+	}
+	else
+	{
+		EnemyManager::SetEnemySpanwer(2);
+	}
 
 	BulletManager::BulletUpdate();
 	ItemManager::ItemUpdate();
@@ -64,11 +64,11 @@ void PlayScene::Render()
 		//return;
 	}
 
-	Boss::BossRender();
 	// 업데이트 루프
-	//if (Time::GetTotalTime() > 60)
-	//{
-	//}
+	if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
+	{
+		Boss::BossRender();
+	}
 
 	BulletManager::BulletRender();
 	EnemyManager::EnemyRender();

@@ -5,6 +5,7 @@ namespace PlayScreenUI
 	void Anim(); // 임시
 
 	ScreenElement* playerInfo;	
+	ScreenElement* bossInfo;
 	PlayerWeaponInfo* playerWeaponInfo;
 	GameState gameState;
 
@@ -17,6 +18,7 @@ namespace PlayScreenUI
 		gameState = GameState::BeforeStart();
 		playerInfo = GameManager::GetPlayerInfo();
 		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
+		bossInfo = GameManager::GetBossInfo();
 	}
 
 	void RenderUI()
@@ -30,6 +32,11 @@ namespace PlayScreenUI
 		RenderBoomCount();
 		RenderScore();
 		RenderProfile();
+
+		if (Time::GetTotalTime() > BOSS_APPEAR_TIME)
+		{
+			RenderBossHp();
+		}
 	}
 
 	void RanderGameFrame()
@@ -117,8 +124,29 @@ namespace PlayScreenUI
 		}
 		else
 		{
-			ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"█", FG_RED); // 임시
+			//ConsoleRenderer::ScreenDrawString(78, MAXHEIGHT + 5, L"█", FG_RED); // 임시
 			Anim();
+		}
+	}
+
+	void RenderBossHp()
+	{
+		int gap = 1;
+
+		// 체력 숫자
+		int currHealth = bossInfo->health;
+		char hpBuffer[10];
+		_itoa_s(currHealth, hpBuffer, 10);
+
+		int gapFromHealthTitle = 10;
+		int posY = GetScreenPositionByRatio(1, 0.2);
+		ConsoleRenderer::ScreenDrawString(3, posY, L"BOSS", FG_GREEN);
+
+		// 체력 그림
+		for (int i = 0; i < currHealth; i++)
+		{
+			ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
+			ConsoleRenderer::ScreenDrawChar(gapFromHealthTitle + i + gap, posY, L'█', FG_BLUE_DARK);
 		}
 	}
 
