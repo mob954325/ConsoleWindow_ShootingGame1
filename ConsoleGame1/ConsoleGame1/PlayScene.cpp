@@ -57,7 +57,7 @@ void PlayScene::Update()
 	EnemyManager::EnemyUpdate();
 
 	Player::PlayerUpdate();
-	TestVictory();
+	//TestVictory();
 }
 
 void PlayScene::Render()
