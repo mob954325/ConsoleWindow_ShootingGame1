@@ -40,7 +40,7 @@ namespace MenuSceneUI
 
 	void ShowHighestScore()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.8f);
+		int posX = GetScreenPositionByRatio(0, 0.7f);
 		int posY = GetScreenPositionByRatio(1, 0.1f);
 		ConsoleRenderer::ScreenDrawString(posX, posY - 2 , L"- Rank -", FG_WHITE);
 		for (int i = 0; i < RANKER_COUNT; i++)
@@ -48,7 +48,7 @@ namespace MenuSceneUI
 			ConsoleRenderer::ScreenDrawString(posX, posY + i * 2, rankerName[i], FG_WHITE);
 			char buffer[100];
 			_itoa_s(rankerScore[i], buffer, 10);
-			ConsoleRenderer::ScreenDrawString(posX + 8, posY + i * 2, buffer, FG_WHITE);
+			ConsoleRenderer::ScreenDrawString(posX + 16, posY + i * 2, buffer, FG_WHITE);
 		}
 	}
 
