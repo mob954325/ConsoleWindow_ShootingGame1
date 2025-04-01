@@ -1,4 +1,4 @@
-﻿#include "MenuSceneUI.h";
+﻿#include "MenuSceneUI.h"
 
 namespace MenuSceneUI
 {
@@ -26,22 +26,22 @@ namespace MenuSceneUI
 
 	void TitleUI()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.49);	
-		int posY = GetScreenPositionByRatio(1, 0.3);	
+		int posX = GetScreenPositionByRatio(0, 0.49f);	
+		int posY = GetScreenPositionByRatio(1, 0.3f);	
 		ConsoleRenderer::ScreenDrawString(posX + 1, posY, "Space Shooting", FG_GREEN);
 	}
 
 	void ShowPressStartUI()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.47);
-		int posY = GetScreenPositionByRatio(1, 0.8);
+		int posX = GetScreenPositionByRatio(0, 0.47f);
+		int posY = GetScreenPositionByRatio(1, 0.8f);
 		ConsoleRenderer::ScreenDrawString(posX, posY, "Press Space to Start", FG_GREEN);
 	}
 
 	void ShowHighestScore()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.8);
-		int posY = GetScreenPositionByRatio(1, 0.1);
+		int posX = GetScreenPositionByRatio(0, 0.8f);
+		int posY = GetScreenPositionByRatio(1, 0.1f);
 		ConsoleRenderer::ScreenDrawString(posX, posY - 2 , L"- Rank -", FG_WHITE);
 		for (int i = 0; i < RANKER_COUNT; i++)
 		{
@@ -54,8 +54,8 @@ namespace MenuSceneUI
 
 	void InputGuide()
 	{
-		int posX = GetScreenPositionByRatio(0, 0.1);
-		int posY = GetScreenPositionByRatio(1, 0.1);
+		int posX = GetScreenPositionByRatio(0, 0.1f);
+		int posY = GetScreenPositionByRatio(1, 0.1f);
 		ConsoleRenderer::ScreenDrawString(posX, posY , L"- Input Guide -", FG_WHITE);
 		ConsoleRenderer::ScreenDrawString(posX, posY + 1, L"이동 : WASD", FG_WHITE);
 		ConsoleRenderer::ScreenDrawString(posX, posY + 2, L"발사 : J", FG_WHITE);

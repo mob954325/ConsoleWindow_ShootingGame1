@@ -61,32 +61,25 @@ namespace ItemManager
 			{
 				for (int j = 1; j <= currItem->data.scale.x; j++)
 				{
-					int currX = (int)currItem->data.position.x - currItem->data.scale.x / 2 + j;
-					int currY = (int)currItem->data.position.y - currItem->data.scale.y / 2 + i;
-					if (currX == (int)currItem->data.position.x && currY == (int)currItem->data.position.y)
-					{
-						// 중앙
-						ItemType currItemType = currItem->data.additionalElement.itemtype;
+					int currX = (int)(currItem->data.position.x - currItem->data.scale.x / 2 + j);
+					int currY = (int)(currItem->data.position.y - currItem->data.scale.y / 2 + i);
+					// 중앙
+					ItemType currItemType = currItem->data.additionalElement.itemtype;
 
-						switch (currItemType)
-						{
-						case WeaponUpgrade:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'U', FG_SKY_DARK);
-							break;
-						case BoomItem:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'B', FG_YELLOW);
-							break;
-						case HpRestore:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'H', FG_GREEN);
-							break;
-						default:
-							ConsoleRenderer::ScreenDrawChar(currX, currY, L'M', FG_SKY_DARK);
-							break;
-						}
-					}
-					else
+					switch (currItemType)
 					{
-						ConsoleRenderer::ScreenDrawChar(currX, currY, L'▉', FG_RED);
+					case WeaponUpgrade:
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'U', FG_SKY_DARK);
+						break;
+					case BoomItem:
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'B', FG_YELLOW);
+						break;
+					case HpRestore:
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'H', FG_GREEN);
+						break;
+					default:
+						ConsoleRenderer::ScreenDrawChar(currX, currY, L'M', FG_SKY_DARK);
+						break;
 					}
 				}
 			}

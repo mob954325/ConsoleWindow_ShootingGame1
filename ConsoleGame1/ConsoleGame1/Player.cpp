@@ -43,7 +43,7 @@ namespace Player
 		{
 			DebugLog("Player Dead\n");
 			SoundController::PlayEffectSound("GameOver.wav");
-			ParticleManager::ShowParticleAtPosition(playerInfo->position, ParticleType::Dead, 0.14);
+			ParticleManager::ShowParticleAtPosition(playerInfo->position, ParticleType::Dead, 0.14f);
 			ChangePlayerImmnueState(0);
 		}
 
@@ -149,7 +149,7 @@ namespace Player
 
 	// 임시 값
 	float testTimer = 0;
-	float maxTimer = 0.4;
+	float maxTimer = 0.4f;
 	int index = 0;
 
 	void RenderPlayer()
@@ -159,16 +159,9 @@ namespace Player
 			for (int j = 0; j <= playerInfo->scale.x; j++)
 			{
 				// 좌측 상단부터 랜더링하기
-				int currX = (int)playerInfo->position.x - playerInfo->scale.x / 2 + j;
-				int currY = (int)playerInfo->position.y - playerInfo->scale.y / 2 + i;
-				if (currX == (int)playerInfo->position.x && currY == (int)playerInfo->position.y)
-				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'P', FG_WHITE);
-				}
-				else
-				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_WHITE);
-				}
+				int currX = (int)(playerInfo->position.x - playerInfo->scale.x / 2 + j);
+				int currY = (int)(playerInfo->position.y - playerInfo->scale.y / 2 + i);
+				ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_WHITE);
 			}
 		}
 
@@ -204,7 +197,7 @@ namespace Player
 		
 		if (Input::IsKeyDown('K'))
 		{
-			ParticleManager::ShowParticleAtPosition({MAXWIDTH / 2 - MAXWIDTH / 5, MAXHEIGHT / 2 - MAXHEIGHT / 5 }, ParticleType::PlayerBoom, 0.2);
+			ParticleManager::ShowParticleAtPosition({MAXWIDTH / 2 - MAXWIDTH / 5, MAXHEIGHT / 2 - MAXHEIGHT / 5 }, ParticleType::PlayerBoom, 0.2f);
 		}
 	}
 }

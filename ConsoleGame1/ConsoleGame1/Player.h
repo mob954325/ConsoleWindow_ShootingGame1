@@ -7,7 +7,7 @@
 
 #include <Windows.h>
 
-#define PLAYER_SHOTDELAY 0.2
+#define PLAYER_SHOTDELAY 0.2f
 
 enum PlayerState
 {

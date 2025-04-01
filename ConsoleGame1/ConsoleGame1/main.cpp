@@ -16,7 +16,7 @@ int wmain()
 {
 	setlocale(LC_ALL, ""); // 유니코드 설정
 
-	ENABLE_LEAK_CHECK();
+	//ENABLE_LEAK_CHECK();
 
 	RankingFileUtility::Initialize();
 	ConsoleRenderer::ScreenInit();
@@ -35,7 +35,7 @@ int wmain()
 		GameLoop::Update();
 		GameLoop::Render();
 		SoundController::Update();
-		__CheckFPS();
+		//__CheckFPS();
 	};
 	
 	SoundController::Release();
@@ -44,5 +44,5 @@ int wmain()
 	ConsoleRenderer::ScreenRelease();
 	RankingFileUtility::Release();
 
-	DUMP_LEAKS();
+	//DUMP_LEAKS();
 }

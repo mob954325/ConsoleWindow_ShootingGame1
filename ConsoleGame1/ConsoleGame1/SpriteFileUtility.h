@@ -7,7 +7,6 @@
 #include <string.h>
 #include <iostream>
 #include <fstream>
-#include <filesystem>
 
 namespace SpriteFileUtility
 {

@@ -9,7 +9,7 @@ namespace Boss
 	ScreenElement* BossInfo = {};
 
 	float bossShootTimer = 0;
-	float maxBossShootTime = 0.7;
+	float maxBossShootTime = 0.7f;
 	int isDead = 0;
 	void Initialize()
 	{
@@ -42,14 +42,10 @@ namespace Boss
 		{
 			for (int j = 1; j <= BossInfo->scale.x; j++)
 			{
-				int currX = (int)BossInfo->position.x - BossInfo->scale.x / 2 + j;
-				int currY = (int)BossInfo->position.y - BossInfo->scale.y / 2 + i;
+				int currX = (int)(BossInfo->position.x - BossInfo->scale.x / 2 + j);
+				int currY = (int)(BossInfo->position.y - BossInfo->scale.y / 2 + i);
 
 				ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
-				if (currX == (int)BossInfo->position.x && currY == (int)BossInfo->position.y)
-				{
-					ConsoleRenderer::ScreenDrawChar(currX, currY, L'(｀・ω・´)', FG_BLUE_DARK);
-				}
 			}
 		}
 
@@ -60,7 +56,7 @@ namespace Boss
 			{
 				int posX = rand() % (int)BossInfo->scale.x;
 				int posY = rand() % (int)BossInfo->scale.y;
-				ParticleManager::ShowParticleAtPosition({ BossInfo->position.x - posX, BossInfo->position.y + posY / 2 }, ParticleType::Dead, 0.1);
+				ParticleManager::ShowParticleAtPosition({ BossInfo->position.x - posX, BossInfo->position.y + posY / 2 }, ParticleType::Dead, 0.1f);
 			}
 			if (isDead == 0)
 			{
@@ -72,8 +68,8 @@ namespace Boss
 
 	void BossShoot()
 	{
-		float attackProbability = 100 / BOSS_ATTACK_COUNT;
-		float randomAttack = rand() % 101; // 아마 마지막 공격이 더 많이 나갈것임		
+		float attackProbability = (float)(100 / BOSS_ATTACK_COUNT);
+		float randomAttack = (float)(rand() % 101); // 아마 마지막 공격이 더 많이 나갈것임		
 
 		ScreenElement* player = GameManager::GetPlayerInfo();
 

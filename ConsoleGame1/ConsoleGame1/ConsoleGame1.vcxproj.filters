@@ -75,9 +75,6 @@
     <ClCompile Include="BulletManager.cpp">
       <Filter>소스 파일\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="BulletManager.h">
-      <Filter>헤더 파일\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyManager.cpp">
       <Filter>소스 파일\Objects</Filter>
     </ClCompile>
@@ -205,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="RankingFileUtility.h">
       <Filter>헤더 파일\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>헤더 파일\Objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

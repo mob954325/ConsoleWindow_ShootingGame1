@@ -44,8 +44,8 @@ namespace EndSceneUI
 
 	void ShowGameResult()
 	{
-		int scoreTextPosX = GetScreenPositionByRatio(0, 0.5);
-		int scoreTextPosY = GetScreenPositionByRatio(1, 0.3);
+		int scoreTextPosX = GetScreenPositionByRatio(0, 0.5f);
+		int scoreTextPosY = GetScreenPositionByRatio(1, 0.3f);
 
 		if (GameManager::GetGameReslutState() == GameResultState::Lose)
 		{
@@ -60,8 +60,8 @@ namespace EndSceneUI
 	void ShowTotalScore()
 	{
 		int totalScore = GameManager::GetCurrentPlayScore();
-		int scoreTextPosX= GetScreenPositionByRatio(0, 0.5);
-		int scoreTextPosY = GetScreenPositionByRatio(1, 0.4);
+		int scoreTextPosX= GetScreenPositionByRatio(0, 0.5f);
+		int scoreTextPosY = GetScreenPositionByRatio(1, 0.4f);
 		char scoreBuffer[100];
 		
 		_itoa_s(totalScore, scoreBuffer, 10);
@@ -74,8 +74,8 @@ namespace EndSceneUI
 	{
 		if (inputBlockTimer < maxInputBlockTime) return;
 
-		int helpTextPosX = GetScreenPositionByRatio(0, 0.4);
-		int helpTextPosY = GetScreenPositionByRatio(1, 0.8);
+		int helpTextPosX = GetScreenPositionByRatio(0, 0.4f);
+		int helpTextPosY = GetScreenPositionByRatio(1, 0.8f);
 
 		if (isActiveSetName == 1 && RankingFileUtility::CheckScore(GameManager::GetCurrentPlayScore()) == 1)
 		{

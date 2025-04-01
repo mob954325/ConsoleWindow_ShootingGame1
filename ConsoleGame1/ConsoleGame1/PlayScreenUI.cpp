@@ -27,7 +27,7 @@ namespace PlayScreenUI
 
 	void Initialize()
 	{
-		gameState = GameState::BeforeStart();
+		gameState = GameState::BeforeStart;
 		playerInfo = GameManager::GetPlayerInfo();
 		playerWeaponInfo = GameManager::GetPlayerWeaponInfo();
 		bossInfo = GameManager::GetBossInfo();
@@ -80,15 +80,15 @@ namespace PlayScreenUI
 	void RenderBoomCount()
 	{
 		int gap = 2;
-		int boomTextPosX = GetScreenPositionByRatio(0, 0.3);
-		int boomTextPosY = GetScreenPositionByRatio(1, 1.1);
+		int boomTextPosX = GetScreenPositionByRatio(0, 0.3f);
+		int boomTextPosY = GetScreenPositionByRatio(1, 1.1f);
 
 		// 체력 숫자
 		int boomCount = playerWeaponInfo->boomCount;
 		ConsoleRenderer::ScreenDrawString(boomTextPosX, boomTextPosY, "Boom : ", FG_GREEN);
 		for (int i = 1; i <= boomCount; i++)
 		{
-			ConsoleRenderer::ScreenDrawChar((boomTextPosX * 1.2f)+ gap * i, boomTextPosY, L'B', FG_GREEN);
+			ConsoleRenderer::ScreenDrawChar((int)((boomTextPosX * 1.2f)+ gap * i), boomTextPosY, L'B', FG_GREEN);
 
 		}
 	}
@@ -97,9 +97,9 @@ namespace PlayScreenUI
 	{
 		int positionX = 0;
 
-		int elapsedTime = Time::GetTotalTime();
-		int min = elapsedTime / 60;
-		int sec = elapsedTime % 60;
+		float elapsedTime = Time::GetTotalTime();
+		int min = (int)(elapsedTime / 60);
+		int sec = (int)(elapsedTime) % 60;
 
 		char minBuffer[5];
 		char secBuffer[3];
@@ -155,7 +155,7 @@ namespace PlayScreenUI
 		_itoa_s(currHealth, hpBuffer, 10);
 
 		int gapFromHealthTitle = 10;
-		int posY = GetScreenPositionByRatio(1, 0.1);
+		int posY = GetScreenPositionByRatio(1, 0.1f);
 		ConsoleRenderer::ScreenDrawString(3, posY, L"BOSS", FG_GREEN);
 
 		BossHpProcess();
@@ -189,8 +189,8 @@ namespace PlayScreenUI
 				warningType = warningType == 1 ? 0 : 1;
 			}
 
-			int posX = GetScreenPositionByRatio(0, 0.3);
-			int posY = GetScreenPositionByRatio(1, 0.4);
+			int posX = GetScreenPositionByRatio(0, 0.3f);
+			int posY = GetScreenPositionByRatio(1, 0.4f);
 
 			if(warningType == 1)ConsoleRenderer::ScreenDrawString(posX, posY, L"██████████████████ Boss incoming ██████████████████", FG_YELLOW_DARK);
 			if(warningType == 0)ConsoleRenderer::ScreenDrawString(posX, posY, L"██████████████████ Boss incoming ██████████████████", FG_RED_DARK);

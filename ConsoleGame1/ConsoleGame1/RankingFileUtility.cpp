@@ -28,7 +28,7 @@ namespace RankingFileUtility
 			// 이름
 			if (loopCount == 0)
 			{
-				int wordLength = strlen(buffer);
+				int wordLength = (int)strlen(buffer);
 				buffer[wordLength - 1] = '\0';
 				wordLength--;
 
@@ -38,8 +38,8 @@ namespace RankingFileUtility
 			else if (loopCount == 1)
 			{
 				// 숫자
-				int wordLength = strlen(buffer);
-				wordLength = strlen(buffer);
+				int wordLength = (int)strlen(buffer);
+				wordLength = (int)strlen(buffer);
 				buffer[wordLength - 1] = '\0';
 				wordLength--;
 
@@ -71,17 +71,17 @@ namespace RankingFileUtility
 	int UpdateScore(int score, const char* name)
 	{
 		if (name == nullptr) name = "AAA";
-
-		int n = strlen(name);
+		
+		int n = (int)strlen(name);
 		char* buffer = (char*)malloc((n + 1) * sizeof(char));
-		strcpy(buffer, name);
+		if(name) strcpy(buffer, name);
 		for (int i = 0; i < RANKER_COUNT; i++)
 		{
 			if (score > rankerScore[i])
 			{
 				int prevScore = rankerScore[i];
 				char* prevName = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char));
-				strcpy(prevName, rankerName[i]);
+				if(rankerName[i]) strcpy(prevName, rankerName[i]);
 
 				for (int j = i + 1; j < RANKER_COUNT; j++)
 				{
@@ -89,14 +89,13 @@ namespace RankingFileUtility
 					{
 						int temp = rankerScore[j];
 						char* tempStr = (char*)malloc(MAX_BUFFER_SIZE * sizeof(char));
-						strcpy(tempStr, rankerName[j]);
+						if(rankerName[j]) strcpy(tempStr, rankerName[j]);
 
 						rankerScore[j] = prevScore;
-						strcpy(rankerName[j], prevName);
+						if(prevName) strcpy(rankerName[j], prevName);
 
 						prevScore = temp;
-						strcpy(prevName, tempStr);
-
+						if(tempStr) strcpy(prevName, tempStr);
 						free(tempStr);
 						break;
 					}
@@ -107,7 +106,7 @@ namespace RankingFileUtility
 					if (prevScore > rankerScore[j])
 					{
 						rankerScore[j] = prevScore;
-						strcpy(rankerName[j], prevName);
+						if(prevName) strcpy(rankerName[j], prevName);
 						break;
 					}
 				}

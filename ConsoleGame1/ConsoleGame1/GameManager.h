@@ -39,7 +39,7 @@ namespace GameManager
 	/// 오브젝트 크기만큼 점수를 반환하는 함수
 	/// </summary>
 	/// <returns>크기 * SCORE_SCALE</returns>
-	int GetScoreBySize(ScreenElement obj);
+	float GetScoreBySize(ScreenElement obj);
 
 	/// <summary>
 	/// 현재 스코어 받기

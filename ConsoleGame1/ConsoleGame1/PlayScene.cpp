@@ -30,9 +30,9 @@ void PlayScene::Update()
 	}
 	else if (GameManager::GetBossInfo()->health <= 0)
 	{
-		int enemyScore = GameManager::GetScoreBySize(*GameManager::GetBossInfo());
+		float enemyScore = GameManager::GetScoreBySize(*GameManager::GetBossInfo()); // AAAA
 		enemyScore *= 0.25f;
-		GameManager::AddPlayScore(enemyScore); // 아마 게임 끝날때까지 계속 점수 증가할꺼임
+		GameManager::AddPlayScore((int)enemyScore); // 아마 게임 끝날때까지 계속 점수 증가할꺼임
 		GameManager::SetGameResultState(GameResultState::Win);
 		GameManager::SetGameState(GameState::PlayEnd);
 	}

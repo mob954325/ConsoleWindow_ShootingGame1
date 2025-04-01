@@ -37,15 +37,15 @@ namespace EnemyManager
 			{
 				if (currEnemy->data.health <= 0)
 				{
-					int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
-					GameManager::AddPlayScore(enemyScore);
+					float enemyScore = GameManager::GetScoreBySize(currEnemy->data);
+					GameManager::AddPlayScore((int)enemyScore);
 
-					ParticleManager::ShowParticleAtPosition(currEnemy->data.position, ParticleType::Dead, 0.08);
+					ParticleManager::ShowParticleAtPosition(currEnemy->data.position, ParticleType::Dead, 0.08f);
 
 					int currDropRate = rand() % 101;
 					if (currDropRate <= ITEM_DROPRATE)
 					{
-						float randx = rand() % 2;
+						float randx = (float)(rand() % 2);
 						int randItemIndex = rand() % ItemType::ItemTypeCount;
 
 						ItemManager::CreateItem(currEnemy->data.position, { -10, -10 * randx }, (ItemType)randItemIndex);
@@ -114,8 +114,8 @@ namespace EnemyManager
 			{
 				for (int j = 1; j <= currEnemy->data.scale.x; j++)
 				{
-					int currX = (int)currEnemy->data.position.x - currEnemy->data.scale.x / 2 + j;
-					int currY = (int)currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i;
+					int currX = (int)(currEnemy->data.position.x - currEnemy->data.scale.x / 2 + j);
+					int currY = (int)(currEnemy->data.position.y - currEnemy->data.scale.y / 2 + i);
 					ConsoleRenderer::ScreenDrawChar(currX, currY, L'█', FG_RED);
 				}
 			}
@@ -126,12 +126,12 @@ namespace EnemyManager
 	
 	void SpawnEnemyAtRandomPosition()
 	{
-		float spawnPositionX = rand() % ENEMY_SPAWN_AREA_WIDTH;
-		float spawnPositionY = rand() % ENEMY_SPAWN_AREA_HEIGHT;
+		float spawnPositionX = (float)((int)(rand()) % ENEMY_SPAWN_AREA_WIDTH);
+		float spawnPositionY = (float)((int)(rand()) % ENEMY_SPAWN_AREA_HEIGHT);
 
 		// TODO : 랜덤시드 변경 코드 넣기
-		float randomSpeed = rand() % MAX_ENEMY_SPEED;
-		int randomType = rand() % EnemyType::EnemyTypeCount;
+		float randomSpeed = (float)(rand() % MAX_ENEMY_SPEED);
+		int randomType = (int)(rand() % EnemyType::EnemyTypeCount);
 
 		if (randomSpeed < MIN_ENEMY_SPEED) randomSpeed = MIN_ENEMY_SPEED;
 

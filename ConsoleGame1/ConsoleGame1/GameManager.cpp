@@ -52,8 +52,8 @@ namespace GameManager
 			Node* currEnemy = FindNode(EnemyList, i);
 			if (!currEnemy) continue;
 
-			int enemyScore = GameManager::GetScoreBySize(currEnemy->data);
-			totalScore += enemyScore;
+			float enemyScore = GameManager::GetScoreBySize(currEnemy->data);
+			totalScore += (int)enemyScore;
 		}
 
 		// 총알
@@ -63,8 +63,8 @@ namespace GameManager
 			Node* currBullet = FindNode(BulletList, i);
 			if (!currBullet) continue;
 
-			int bulletScore = GameManager::GetScoreBySize(currBullet->data);
-			totalScore += bulletScore;
+			float bulletScore = GameManager::GetScoreBySize(currBullet->data);
+			totalScore += (int)bulletScore;
 		}
 
 		// 모든 리스트 없애기
@@ -104,7 +104,7 @@ namespace GameManager
 		return &bossElement;
 	}
 
-	int GetScoreBySize(ScreenElement obj)
+	float GetScoreBySize(ScreenElement obj)
 	{
 		return obj.scale.x * SCORE_SCALE + obj.scale.y * SCORE_SCALE;
 	}
@@ -173,8 +173,8 @@ namespace GameManager
 	{
 		changeSceneTimer += Time::GetDeltaTime();
 
-		int titlePosX = GetScreenPositionByRatio(0, 0.5);
-		int titlePosY = GetScreenPositionByRatio(1, 0.2);
+		int titlePosX = GetScreenPositionByRatio(0, 0.5f);
+		int titlePosY = GetScreenPositionByRatio(1, 0.2f);
 
 		if (gameResult == GameResultState::Lose)
 		{

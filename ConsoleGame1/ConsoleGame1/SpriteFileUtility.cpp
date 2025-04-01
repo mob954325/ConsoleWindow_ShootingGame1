@@ -28,9 +28,9 @@ namespace SpriteFileUtility
 
 		while (fgets(buffer, sizeof(buffer), file))
 		{
-			int wordLength = strlen(buffer);
+			int wordLength = (int)strlen(buffer);
 			words[rowCount] = (char*)malloc(wordLength * sizeof(char*));
-			strcpy(words[rowCount++], buffer);
+			if(buffer) strcpy(words[rowCount++], buffer);
 		}
 
 		*outBuffer = (char**)malloc(rowCount * sizeof(char*));
@@ -38,7 +38,7 @@ namespace SpriteFileUtility
 		int colCount = 0;
 		for (int i = 0; i < rowCount; i++)
 		{
-			int len = strlen(words[i]);
+			int len = (int)strlen(words[i]);
 			(*outBuffer)[i] = (char*)malloc((len + 1) * sizeof(char));
 			strcpy((*outBuffer)[i], words[i]);
 			free(words[i]);
@@ -105,7 +105,7 @@ namespace SpriteFileUtility
 		int colCount = 0;
 		for (int i = 0; i < rowCount; i++)
 		{
-			int len = wcslen(words[i]);
+			int len = (int)wcslen(words[i]);
 			(*outBuffer)[i] = (wchar_t*)malloc((len + 1) * sizeof(wchar_t));
 			wcscpy((*outBuffer)[i], words[i]);
 			free(words[i]);

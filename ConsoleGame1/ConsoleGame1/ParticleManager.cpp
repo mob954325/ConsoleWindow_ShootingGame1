@@ -1,4 +1,4 @@
-﻿#include "ParticleManager.h";
+﻿#include "ParticleManager.h"
 
 #include "DebugUtility.h"
 namespace ParticleManager
@@ -91,7 +91,7 @@ namespace ParticleManager
 				wchar_t** t = SpriteData::GetHitEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)
 				{
-					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_BLUE_DARK);
+					ConsoleRenderer::ScreenDrawString((int)obj->position.x, (int)obj->position.y + (i - 1), t[i], FG_BLUE_DARK);
 				}
 			}
 		}
@@ -117,7 +117,7 @@ namespace ParticleManager
 				wchar_t** t = SpriteData::GetBoomEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)
 				{
-					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_WHITE);
+					ConsoleRenderer::ScreenDrawString((int)obj->position.x, (int)obj->position.y + (i - 1), t[i], FG_WHITE);
 				}
 			}
 		}
@@ -143,7 +143,7 @@ namespace ParticleManager
 				wchar_t** t = SpriteData::GetPlayerBoomEffect(obj->health - 1, &size);
 				for (int i = 0; i < size; i++)
 				{
-					ConsoleRenderer::ScreenDrawString(obj->position.x, obj->position.y + (i - 1), t[i], FG_YELLOW_DARK);
+					ConsoleRenderer::ScreenDrawString((int)obj->position.x, (int)obj->position.y + (i - 1), t[i], FG_YELLOW_DARK);
 				}
 			}
 		}

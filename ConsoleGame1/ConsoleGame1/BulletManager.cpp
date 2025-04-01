@@ -56,8 +56,8 @@ namespace BulletManager
 			{
 				for (int x = 1; x <= currBullet->data.scale.x; x++)
 				{
-					int currX = (int)currBullet->data.position.x - currBullet->data.scale.x / 2 + x;
-					int currY = (int)currBullet->data.position.y - currBullet->data.scale.y / 2 + y;
+					int currX = (int)(currBullet->data.position.x - currBullet->data.scale.x / 2 + x);
+					int currY = (int)(currBullet->data.position.y - currBullet->data.scale.y / 2 + y);
 					if(currBullet->data.tag == Tag::PlayerObject) ConsoleRenderer::ScreenDrawChar(currX, currY, L'▬', FG_BLUE);
 					else if(currBullet->data.tag == Tag::EnemyObject) ConsoleRenderer::ScreenDrawChar(currX, currY, L'◀', FG_YELLOW);
 				}

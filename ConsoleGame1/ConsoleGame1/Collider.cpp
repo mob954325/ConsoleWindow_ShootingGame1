@@ -14,9 +14,6 @@ namespace Collider
 	/// <returns>충돌하면 1, 충돌하지 않았으면 0 반환</returns>
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2);
 
-	void CheckPlayerToEnemyBullet();
-	void CheckEnemyToPlayerBullet();
-
 	void CheckBulletCollider()
 	{
 
@@ -50,7 +47,7 @@ namespace Collider
 							currBullet->data.health--;
 							currEnemy->data.health--;
 
-							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05f);
 						}
 					}
 					else // 나머지
@@ -60,7 +57,7 @@ namespace Collider
 							currBullet->data.health--;
 							currEnemy->data.health--;
 
-							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05f);
 						}
 					}
 				}
@@ -75,7 +72,7 @@ namespace Collider
 							currBullet->data.health--;
 							boss->health--;
 
-							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05f);
 						}
 					}
 					else // 나머지
@@ -84,7 +81,7 @@ namespace Collider
 						{
 							currBullet->data.health--;
 							boss->health--;
-							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05);
+							ParticleManager::ShowParticleAtPosition(currBullet->data.position, ParticleType::Hit, 0.05f);
 						}
 					}
 				}
@@ -189,27 +186,27 @@ namespace Collider
 		int dx = (int)obj1.position.x - (int)obj2.position.x;
 		int dy = (int)obj1.position.y - (int)obj2.position.y;
 
-		int distanceSqur = dx * dx + dy * dy;
+		float distanceSqur = dx * dx + dy * dy;
 
 		return distanceSqur < radiusSum * radiusSum ? 1 : 0;
 	}
 
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2)
 	{
-		int radiusSumX = obj1.scale.x + obj2.scale.y;
-		int radiusSumY = obj1.scale.x + obj2.scale.y;
+		int radiusSumX = (int)(obj1.scale.x + obj2.scale.y);
+		int radiusSumY = (int)(obj1.scale.x + obj2.scale.y);
 
 		if (radiusSumX == 0 || radiusSumY == 0) return 0; // 0으로 나눌 수 없음
 
-		int dx = (int)obj1.position.x - (int)obj2.position.x;
-		int dy = (int)obj1.position.y - (int)obj2.position.y;
+		int dx = (int)(obj1.position.x - obj2.position.x);
+		int dy = (int)(obj1.position.y - obj2.position.y);
 		// 타원 크기 적용
-		float dxNorm = dx / radiusSumX;
-		float dyNorm = dy / radiusSumY;
+		float dxNorm = (float)(dx / radiusSumX);
+		float dyNorm = (float)(dy / radiusSumY);
 
-		int distanceSqur = dxNorm * dxNorm + dyNorm * dyNorm;
+		float distanceSqur = (int)(dxNorm * dxNorm + dyNorm * dyNorm);
 
-		return	distanceSqur < 1.0f ? 1 : 0;
+		return distanceSqur < 1;
 	}
 
 }// checkCollider
