@@ -176,6 +176,7 @@ namespace Collider
 		}
 	}
 
+	// 원 콜라이더 체크
 	int CheckCircleArea(ScreenElement obj1, ScreenElement obj2)
 	{
 		float radius1 = obj1.scale.x / 2.0f;
@@ -191,6 +192,7 @@ namespace Collider
 		return distanceSqur < radiusSum * radiusSum ? 1 : 0;
 	}
 
+	// 타원 콜라이더 체크
 	int CheckEllipaseArea(ScreenElement obj1, ScreenElement obj2)
 	{
 		int radiusSumX = (int)(obj1.scale.x + obj2.scale.y);

@@ -10,6 +10,7 @@
 
 #define BULLET_SPEED 50
 
+// 오브젝트 태그
 enum Tag
 {
 	None = 0,
@@ -18,6 +19,7 @@ enum Tag
 	ItemObject,
 };
 
+// 아이템 타입 
 enum ItemType
 {
 	WeaponUpgrade = 0,
@@ -26,6 +28,7 @@ enum ItemType
 	ItemTypeCount
 };
 
+// 파티클 타입
 enum ParticleType
 {
 	Hit = 0,
@@ -33,6 +36,7 @@ enum ParticleType
 	PlayerBoom,
 };
 
+// 적 타입
 enum EnemyType
 {
 	Smol = 0,
@@ -41,6 +45,7 @@ enum EnemyType
 	EnemyTypeCount
 };
 
+// 오브젝트가 공통으로 가지고 있는 데이터 모음
 struct ScreenElement
 {
 	// 오브젝트 태그
@@ -66,6 +71,7 @@ struct ScreenElement
 	} additionalElement;
 };
 
+// 플레이어 무기 정보 저장용 
 struct PlayerWeaponInfo
 {
 	int boomCount = 0;

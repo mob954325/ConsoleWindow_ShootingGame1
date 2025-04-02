@@ -58,7 +58,8 @@ namespace MenuSceneUI
 		int posY = GetScreenPositionByRatio(1, 0.1f);
 		ConsoleRenderer::ScreenDrawString(posX, posY , L"- Input Guide -", FG_WHITE);
 		ConsoleRenderer::ScreenDrawString(posX, posY + 1, L"이동 : WASD", FG_WHITE);
-		ConsoleRenderer::ScreenDrawString(posX, posY + 2, L"발사 : J", FG_WHITE);
+		ConsoleRenderer::ScreenDrawString(posX, posY + 2, L"발사 : J (꾹 누르기 가능)", FG_WHITE);
 		ConsoleRenderer::ScreenDrawString(posX, posY + 3, L"폭탄 : K [ 일반 적과 총알만 제거 ]", FG_WHITE);
+		ConsoleRenderer::ScreenDrawString(posX, posY + 4, L"이동속도 증가 : LShift", FG_WHITE);
 	}
 }

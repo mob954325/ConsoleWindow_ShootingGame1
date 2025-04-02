@@ -66,6 +66,19 @@ void CheckSceneChange()
 	// 씬 전환
 	if (SceneCurrent != SceneNext)
 	{
+		// 전환 전 씬 정리
+		switch (SceneCurrent)
+		{
+		case MENU:
+			break;
+		case PLAY:
+			PlayScene::OnSceneEnd();
+		case END:
+			break;
+		default:
+			break;
+		}
+
 		SceneCurrent = SceneNext;
 		// 전환 시 초기화
 		switch (SceneCurrent)

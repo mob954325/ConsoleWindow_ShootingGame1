@@ -90,6 +90,7 @@ namespace EnemyManager
 			float speedX = player->position.x - curr.position.x;
 			float speedY = player->position.y - curr.position.y;
 
+			if (speedX > 0) return; // 적이 플레이어보다 앞에 있으면 공격 중단
 			BulletManager::CreateBullet({ (curr.position.x - 3), curr.position.y }, { speedX, speedY }, Tag::EnemyObject);
 		}
 		else if (type == EnemyType::Medium) // 2 x 2

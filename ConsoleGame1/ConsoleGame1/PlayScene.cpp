@@ -84,6 +84,13 @@ void PlayScene::Render()
 	PlayScreenUI::RenderUI();
 }
 
+void PlayScene::OnSceneEnd()
+{
+	GameManager::FreeAllLists();
+	SoundController::Release();
+	SpriteData::FreeAllSprites();
+}
+
 void TestVictory()
 {
 	if (Input::IsKeyPressed(VK_SPACE))

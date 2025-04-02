@@ -9,7 +9,7 @@
 
 namespace Collider
 {
-	void ColliderInitialize();
+	//void ColliderInitialize();
 	void CheckBulletCollider();
 	void CheckItemCollider();
 }
